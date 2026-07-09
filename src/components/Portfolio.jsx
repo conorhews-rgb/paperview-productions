@@ -3,6 +3,56 @@ import BeholdWidget from '@behold/react'
 import { PORTFOLIO, PORTFOLIO_FILTERS, INSTAGRAM, asset } from '../data'
 import { Icon } from './Icons'
 
+// A portfolio tile. Video items show a poster + play badge, and swap to an
+// inline player when clicked.
+function WorkTile({ w }) {
+  const [playing, setPlaying] = useState(false)
+  const hasVideo = Boolean(w.videoSrc)
+
+  if (playing && hasVideo) {
+    return (
+      <article className="work work--playing">
+        <video
+          src={asset(w.videoSrc)}
+          poster={asset(w.image)}
+          controls
+          autoPlay
+          playsInline
+          preload="metadata"
+        />
+      </article>
+    )
+  }
+
+  const play = () => hasVideo && setPlaying(true)
+  return (
+    <article
+      className="work"
+      onClick={play}
+      role={hasVideo ? 'button' : undefined}
+      tabIndex={hasVideo ? 0 : undefined}
+      aria-label={hasVideo ? `Play ${w.title}` : undefined}
+      onKeyDown={
+        hasVideo
+          ? (e) => (e.key === 'Enter' || e.key === ' ') && (e.preventDefault(), play())
+          : undefined
+      }
+    >
+      <img src={asset(w.image)} alt={`${w.title} — ${w.client}`} loading="lazy" />
+      {w.video && (
+        <span className="work__play" aria-hidden="true">
+          <Icon.play />
+        </span>
+      )}
+      <div className="work__overlay">
+        <span className="work__cat">{w.category}</span>
+        <h3 className="work__title">{w.title}</h3>
+        <span className="work__client">{w.client}</span>
+      </div>
+    </article>
+  )
+}
+
 export default function Portfolio() {
   const [filter, setFilter] = useState('All')
 
@@ -38,19 +88,7 @@ export default function Portfolio() {
 
         <div className="portfolio__grid">
           {items.map((w) => (
-            <article className="work" key={w.id}>
-              <img src={asset(w.image)} alt={`${w.title} — ${w.client}`} loading="lazy" />
-              {w.video && (
-                <span className="work__play" aria-hidden="true">
-                  <Icon.play />
-                </span>
-              )}
-              <div className="work__overlay">
-                <span className="work__cat">{w.category}</span>
-                <h3 className="work__title">{w.title}</h3>
-                <span className="work__client">{w.client}</span>
-              </div>
-            </article>
+            <WorkTile key={w.id} w={w} />
           ))}
         </div>
 

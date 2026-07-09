@@ -132,12 +132,12 @@ export const AUDIENCES = [
 export const PORTFOLIO = [
   {
     id: 1,
-    title: 'Fight Night Walkout Reel',
+    title: 'Fight Night Recap Reel',
     client: 'Combat Sports',
     category: 'Video',
-    image:
-      'https://images.unsplash.com/photo-1544117519-31a4b719223d?q=80&w=1974&auto=format&fit=crop',
+    image: '/portfolio/fight-night-recap.jpg', // poster still
     video: true,
+    videoSrc: '/portfolio/fight-night-recap.mp4', // plays inline on click
   },
   {
     id: 2,
