@@ -8,6 +8,8 @@ import { Icon } from './Icons'
 function WorkTile({ w }) {
   const [playing, setPlaying] = useState(false)
   const hasVideo = Boolean(w.videoSrc)
+  const hasGallery = Boolean(w.gallery)
+  const interactive = hasVideo || hasGallery
 
   if (playing && hasVideo) {
     return (
@@ -24,17 +26,23 @@ function WorkTile({ w }) {
     )
   }
 
-  const play = () => hasVideo && setPlaying(true)
+  const activate = () => {
+    if (hasGallery) window.location.hash = `gallery/${w.gallery}`
+    else if (hasVideo) setPlaying(true)
+  }
+
   return (
     <article
       className="work"
-      onClick={play}
-      role={hasVideo ? 'button' : undefined}
-      tabIndex={hasVideo ? 0 : undefined}
-      aria-label={hasVideo ? `Play ${w.title}` : undefined}
+      onClick={interactive ? activate : undefined}
+      role={interactive ? 'button' : undefined}
+      tabIndex={interactive ? 0 : undefined}
+      aria-label={
+        hasGallery ? `Open ${w.title} gallery` : hasVideo ? `Play ${w.title}` : undefined
+      }
       onKeyDown={
-        hasVideo
-          ? (e) => (e.key === 'Enter' || e.key === ' ') && (e.preventDefault(), play())
+        interactive
+          ? (e) => (e.key === 'Enter' || e.key === ' ') && (e.preventDefault(), activate())
           : undefined
       }
     >
@@ -42,6 +50,11 @@ function WorkTile({ w }) {
       {w.video && (
         <span className="work__play" aria-hidden="true">
           <Icon.play />
+        </span>
+      )}
+      {hasGallery && (
+        <span className="work__gallery" aria-hidden="true">
+          <Icon.grid />
         </span>
       )}
       <div className="work__overlay">

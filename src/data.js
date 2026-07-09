@@ -153,6 +153,8 @@ export const PORTFOLIO = [
     category: 'Photography',
     image:
       'https://images.unsplash.com/photo-1552674605-db6ffd4facb5?q=80&w=1974&auto=format&fit=crop',
+    // Clicking this tile opens a dedicated gallery page (see GALLERIES below).
+    gallery: 'athlete-portraits',
   },
   {
     id: 4,
@@ -188,6 +190,28 @@ export const PORTFOLIO = [
 ]
 
 export const PORTFOLIO_FILTERS = ['All', 'Video', 'Photography', 'Social', 'Headshots']
+
+// --- Galleries (dedicated portfolio pages) -----------------------------------
+// A portfolio tile with a `gallery` key opens one of these as a full-screen,
+// Instagram-feed-style page (its own URL: #gallery/<key>).
+//
+// TO ADD CONTENT: drop files in `public/galleries/<key>/` and add entries to
+// `items` below. Each item is either:
+//   { type: 'image', src: '/galleries/athlete/01.jpg', caption: 'Optional text' }
+//   { type: 'video', src: '/galleries/athlete/clip.mp4', poster: '/galleries/athlete/clip.jpg', caption: '...' }
+// Leave `items` empty to show the built-in "coming soon" placeholder state.
+export const GALLERIES = {
+  'athlete-portraits': {
+    title: 'Athlete Portrait Series',
+    intro:
+      'Portraits of fighters, coaches, and competitors — shot on location and in studio. A growing collection of the athletes we work with.',
+    items: [
+      // Example (uncomment and point at real files when ready):
+      // { type: 'image', src: '/galleries/athlete/01.jpg', caption: 'Fight week portrait' },
+      // { type: 'video', src: '/galleries/athlete/reel.mp4', poster: '/galleries/athlete/reel.jpg' },
+    ],
+  },
+}
 
 // --- About -------------------------------------------------------------------
 export const ABOUT = {

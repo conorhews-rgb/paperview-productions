@@ -45,6 +45,18 @@ export const Icon = {
   play: (p) => (
     <svg viewBox="0 0 24 24" fill="currentColor" {...p}><path d="M6 4l14 8-14 8z" /></svg>
   ),
+  grid: (p) => (
+    <svg {...base} {...p}>
+      <rect x="3" y="3" width="7" height="7" rx="1" /><rect x="14" y="3" width="7" height="7" rx="1" />
+      <rect x="3" y="14" width="7" height="7" rx="1" /><rect x="14" y="14" width="7" height="7" rx="1" />
+    </svg>
+  ),
+  arrowLeft: (p) => (
+    <svg {...base} {...p}><path d="M19 12H5" /><path d="M12 19l-7-7 7-7" /></svg>
+  ),
+  close: (p) => (
+    <svg {...base} {...p}><path d="M18 6 6 18" /><path d="M6 6l12 12" /></svg>
+  ),
   mail: (p) => (
     <svg {...base} {...p}><rect x="3" y="5" width="18" height="14" rx="2" /><path d="M3 7l9 6 9-6" /></svg>
   ),
