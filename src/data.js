@@ -144,8 +144,7 @@ export const PORTFOLIO = [
     title: 'Event Social Coverage',
     client: 'Dirty Boxing Championship 6',
     category: 'Social',
-    image:
-      'https://images.unsplash.com/photo-1583473848882-f9a5bc7fd2ee?q=80&w=2070&auto=format&fit=crop',
+    image: '/portfolio/dbx6-event-coverage.jpg',
   },
   {
     id: 3,
