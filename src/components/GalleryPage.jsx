@@ -63,19 +63,21 @@ export default function GalleryPage({ data, onClose }) {
         ) : (
           <div className="gallery__grid">
             {items.map((it, i) => (
-              <button
-                className="gallery__tile"
-                key={i}
-                onClick={() => setActive(i)}
-                aria-label={it.caption || `Open item ${i + 1}`}
-              >
-                <img src={thumb(it)} alt={it.caption || ''} loading="lazy" />
-                {it.type === 'video' && (
-                  <span className="work__play" aria-hidden="true">
-                    <Icon.play />
-                  </span>
-                )}
-              </button>
+              <figure className="gallery__item" key={i}>
+                <button
+                  className="gallery__tile"
+                  onClick={() => setActive(i)}
+                  aria-label={it.caption || `Open item ${i + 1}`}
+                >
+                  <img src={thumb(it)} alt={it.caption || ''} loading="lazy" />
+                  {it.type === 'video' && (
+                    <span className="work__play" aria-hidden="true">
+                      <Icon.play />
+                    </span>
+                  )}
+                </button>
+                {it.caption && <figcaption className="gallery__cap">{it.caption}</figcaption>}
+              </figure>
             ))}
           </div>
         )}

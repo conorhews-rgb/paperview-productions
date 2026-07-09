@@ -206,9 +206,11 @@ export const GALLERIES = {
     intro:
       'Portraits of fighters, coaches, and competitors — shot on location and in studio. A growing collection of the athletes we work with.',
     items: [
-      // Example (uncomment and point at real files when ready):
-      // { type: 'image', src: '/galleries/athlete/01.jpg', caption: 'Fight week portrait' },
-      // { type: 'video', src: '/galleries/athlete/reel.mp4', poster: '/galleries/athlete/reel.jpg' },
+      { type: 'image', src: '/galleries/athlete/jon-jones.jpg', caption: 'Jon Jones — UFC LHW/HW Champion' },
+      { type: 'image', src: '/galleries/athlete/conor-mcgregor.jpg', caption: 'Conor McGregor — UFC FW/LW Champion' },
+      { type: 'image', src: '/galleries/athlete/mike-perry.jpg', caption: 'Mike Perry — BKFC King of Violence Champion' },
+      { type: 'image', src: '/galleries/athlete/calvin-kattar.jpg', caption: 'Calvin Kattar — UFC Featherweight' },
+      { type: 'image', src: '/galleries/athlete/dillon-danis.jpg', caption: 'Dillon Danis — Misfits MMA Welterweight Champion' },
     ],
   },
 }
