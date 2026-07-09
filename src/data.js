@@ -191,8 +191,7 @@ export const PORTFOLIO_FILTERS = ['All', 'Video', 'Photography', 'Social', 'Head
 
 // --- About -------------------------------------------------------------------
 export const ABOUT = {
-  headshot:
-    'https://images.unsplash.com/photo-1594381898411-846e7d193883?q=80&w=1974&auto=format&fit=crop',
+  headshot: '/about-founder.jpg',
   paragraphs: [
     "I'm the founder of Paperview Productions — a digital media and content company based in the Haverhill, MA area. I build content and run social media for businesses that want to look as serious as they actually are: combat sports gyms, contractors and trades, local shops, and the people who run them.",
     "I'm also a fighter. I've trained and competed, and I've handled media for elite-level athletes — names like Jon Jones, Gordon Ryan, John Danaher, Rob Font, and Calvin Kattar — plus running social for Dirty Boxing Championship 6 and Calvin Kattar's Combat Zone MMA. When athletes at that level trust you with their image, you learn how to make anyone look their best under pressure.",
