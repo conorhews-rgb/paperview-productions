@@ -151,8 +151,8 @@ export const PORTFOLIO = [
     title: 'Athlete Portrait Series',
     client: 'Pro Athlete',
     category: 'Photography',
-    image:
-      'https://images.unsplash.com/photo-1552674605-db6ffd4facb5?q=80&w=1974&auto=format&fit=crop',
+    image: '/galleries/athlete/mike-perry.jpg', // cover thumbnail for the tile
+    imagePosition: '72% center', // keep Mike (right of frame) in the cropped tile
     // Clicking this tile opens a dedicated gallery page (see GALLERIES below).
     gallery: 'athlete-portraits',
   },

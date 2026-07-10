@@ -46,7 +46,12 @@ function WorkTile({ w }) {
           : undefined
       }
     >
-      <img src={asset(w.image)} alt={`${w.title} — ${w.client}`} loading="lazy" />
+      <img
+        src={asset(w.image)}
+        alt={`${w.title} — ${w.client}`}
+        loading="lazy"
+        style={w.imagePosition ? { objectPosition: w.imagePosition } : undefined}
+      />
       {w.video && (
         <span className="work__play" aria-hidden="true">
           <Icon.play />
