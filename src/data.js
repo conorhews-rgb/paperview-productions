@@ -211,6 +211,7 @@ export const GALLERIES = {
       { type: 'image', src: '/galleries/athlete/mike-perry.jpg', caption: 'Mike Perry — BKFC King of Violence Champion' },
       { type: 'image', src: '/galleries/athlete/calvin-kattar.jpg', caption: 'Calvin Kattar — UFC Featherweight' },
       { type: 'image', src: '/galleries/athlete/dillon-danis.jpg', caption: 'Dillon Danis — Misfits MMA Welterweight Champion' },
+      { type: 'image', src: '/galleries/athlete/rob-font.jpg', caption: 'Rob Font — UFC Bantamweight' },
     ],
   },
 }
