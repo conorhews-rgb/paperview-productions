@@ -379,6 +379,8 @@ button { font-family: inherit; cursor: pointer; }
   padding: 38px 32px;
   transition: background 0.25s ease, transform 0.25s ease;
   position: relative;
+  display: flex;
+  flex-direction: column;
 }
 .service:hover { background: #1c1c23; }
 .service__icon {
@@ -401,8 +403,11 @@ button { font-family: inherit; cursor: pointer; }
   margin: 0 0 12px;
 }
 .service p { color: var(--ash); font-size: 0.96rem; margin: 0 0 18px; }
+/* Push the badge to the bottom so all cards' badges align on one level */
+.service .badge { margin-top: auto; }
 .badge {
   display: inline-block;
+  align-self: flex-start;
   font-family: var(--cond);
   text-transform: uppercase;
   letter-spacing: 0.14em;
@@ -448,8 +453,8 @@ button { font-family: inherit; cursor: pointer; }
 .audience:hover::before { transform: scaleX(1); }
 .audience__num {
   font-family: var(--display);
-  font-size: 2.4rem;
-  color: var(--smoke);
+  font-size: 2.6rem;
+  color: var(--bone);
   line-height: 1;
   margin-bottom: 16px;
 }
