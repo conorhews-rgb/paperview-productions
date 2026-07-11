@@ -158,12 +158,10 @@ export const PORTFOLIO = [
   },
   {
     id: 4,
-    title: 'On-Site Job Feature',
-    client: 'Local Contractor',
-    category: 'Video',
-    image:
-      'https://images.unsplash.com/photo-1541888946425-d81bb19240f5?q=80&w=2070&auto=format&fit=crop',
-    video: true,
+    title: 'Blue Collar Content',
+    client: 'G&C Softwash',
+    category: 'Photography',
+    image: '/portfolio/blue-collar-content.jpg',
   },
   {
     id: 5,
