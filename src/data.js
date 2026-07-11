@@ -173,14 +173,6 @@ export const PORTFOLIO = [
     image: '/portfolio/rebel-electric-headshot.jpg',
   },
   {
-    id: 6,
-    title: 'Combat Zone MMA Feed',
-    client: 'Combat Zone MMA',
-    category: 'Social',
-    image:
-      'https://images.unsplash.com/photo-1615117972428-28de67cda58e?q=80&w=1974&auto=format&fit=crop',
-  },
-  {
     id: 7,
     title: 'Family Session',
     client: 'Private Client',
