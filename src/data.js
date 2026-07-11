@@ -291,7 +291,7 @@ export const INSTAGRAM = {
 //   3. Paste that key below.
 // Until a key is set, the form shows a success message but does NOT send email.
 export const CONTACT_FORM = {
-  web3formsKey: '', // ← paste your Web3Forms access key here
+  web3formsKey: '245e6ec5-3dd2-4db7-847d-31c0a436d41a',
 }
 
 // --- Contact -----------------------------------------------------------------
