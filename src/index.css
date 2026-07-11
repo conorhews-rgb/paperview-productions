@@ -894,6 +894,13 @@ button { font-family: inherit; cursor: pointer; }
 .field select { appearance: none; cursor: pointer; }
 
 .form__submit { width: 100%; margin-top: 4px; }
+.form__submit:disabled { opacity: 0.6; cursor: default; }
+.form__error {
+  margin: 0 0 16px;
+  font-size: 0.9rem;
+  color: #e5757f;
+}
+.form__error a { color: var(--gold-bright); }
 
 .form__success {
   text-align: center;

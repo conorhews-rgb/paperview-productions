@@ -1,17 +1,45 @@
 import { useState } from 'react'
-import { BUSINESS, INQUIRY_TYPES } from '../data'
+import { BUSINESS, INQUIRY_TYPES, CONTACT_FORM } from '../data'
 import { Icon } from './Icons'
 
 export default function Contact() {
-  const [sent, setSent] = useState(false)
+  const [status, setStatus] = useState('idle') // idle | sending | sent | error
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
-    // TODO: wire this up to your email/CRM (Formspree, Netlify Forms, etc.)
-    // For now it just shows a success state with the captured values in console.
-    const data = Object.fromEntries(new FormData(e.target).entries())
-    console.log('New inquiry:', data)
-    setSent(true)
+    const form = e.target
+    const data = new FormData(form)
+
+    // No key configured yet → keep the demo success state (nothing is emailed).
+    if (!CONTACT_FORM.web3formsKey) {
+      console.log('New inquiry (demo — set CONTACT_FORM.web3formsKey to email):',
+        Object.fromEntries(data.entries()))
+      setStatus('sent')
+      return
+    }
+
+    // Enrich the payload so the email is easy to read + reply to.
+    data.append('access_key', CONTACT_FORM.web3formsKey)
+    data.append('from_name', 'Paperview Productions Website')
+    data.append('subject', `New inquiry: ${data.get('inquiryType') || 'General'} — ${data.get('name')}`)
+    data.append('replyto', data.get('email'))
+
+    setStatus('sending')
+    try {
+      const res = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        body: data,
+      })
+      const json = await res.json()
+      if (json.success) {
+        setStatus('sent')
+        form.reset()
+      } else {
+        setStatus('error')
+      }
+    } catch {
+      setStatus('error')
+    }
   }
 
   return (
@@ -48,7 +76,7 @@ export default function Contact() {
             </div>
           </aside>
 
-          {sent ? (
+          {status === 'sent' ? (
             <div className="form">
               <div className="form__success">
                 <div className="check"><Icon.check /></div>
@@ -61,6 +89,15 @@ export default function Contact() {
             </div>
           ) : (
             <form className="form" onSubmit={handleSubmit}>
+              {/* Honeypot spam trap (hidden from real users) */}
+              <input
+                type="checkbox"
+                name="botcheck"
+                tabIndex={-1}
+                autoComplete="off"
+                style={{ display: 'none' }}
+              />
+
               <div className="form__row">
                 <div className="field">
                   <label htmlFor="name">Name <span className="req">*</span></label>
@@ -103,8 +140,19 @@ export default function Contact() {
                 />
               </div>
 
-              <button type="submit" className="btn btn--primary form__submit">
-                Send Inquiry
+              {status === 'error' && (
+                <p className="form__error">
+                  Something went wrong sending your inquiry. Please try again, or
+                  email <a href={`mailto:${BUSINESS.email}`}>{BUSINESS.email}</a> directly.
+                </p>
+              )}
+
+              <button
+                type="submit"
+                className="btn btn--primary form__submit"
+                disabled={status === 'sending'}
+              >
+                {status === 'sending' ? 'Sending…' : 'Send Inquiry'}
               </button>
             </form>
           )}

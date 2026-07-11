@@ -283,6 +283,17 @@ export const INSTAGRAM = {
   beholdFeedId: '0NKalbGJj6VLb3oefGN0',
 }
 
+// --- Contact form delivery ---------------------------------------------------
+// Inquiries email to you automatically via Web3Forms (free, unlimited, no account).
+// SETUP (2 minutes):
+//   1. Go to https://web3forms.com
+//   2. Enter your email (conor.hews@gmail.com) → they email you an "access key"
+//   3. Paste that key below.
+// Until a key is set, the form shows a success message but does NOT send email.
+export const CONTACT_FORM = {
+  web3formsKey: '', // ← paste your Web3Forms access key here
+}
+
 // --- Contact -----------------------------------------------------------------
 export const INQUIRY_TYPES = [
   'Social Media Management (ongoing)',
