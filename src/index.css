@@ -367,7 +367,7 @@ button { font-family: inherit; cursor: pointer; }
    ========================================================================== */
 .services__grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr); /* 4 services → clean 2×2 */
+  grid-template-columns: repeat(3, 1fr); /* 3 services → single row */
   gap: 1px;
   background: var(--smoke);
   border: 1px solid var(--smoke);

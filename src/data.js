@@ -65,7 +65,7 @@ export const SERVICES = [
     title: 'Digital Media',
     type: 'both',
     blurb:
-      'Video production and full-range photography under one roof — promos, brand films, event coverage, walkouts, and scroll-stopping short-form, plus commercial, product, and action stills and warm family & portrait sessions. Shot and edited to make the everyday look like a main event, as an ongoing content pipeline or a one-off shoot.',
+      'Video production and full-range photography under one roof — promos, brand films, event coverage, walkouts, and scroll-stopping short-form, plus commercial, product, and action stills, professional headshots for owners and teams, and warm family & portrait sessions. Shot and edited to make the everyday look like a main event, as an ongoing content pipeline or a one-off shoot.',
     icon: 'video',
   },
   {
@@ -75,14 +75,6 @@ export const SERVICES = [
     blurb:
       'The game plan behind the posts: what to make, when to drop it, and why. Positioning, content calendars, and a system your business can actually keep up with.',
     icon: 'strategy',
-  },
-  {
-    id: 'headshots',
-    title: 'Professional Headshots',
-    type: 'shoot',
-    blurb:
-      'Sharp, confident headshots for owners, teams, coaches, and pros. Studio or on-location — you look like the person people want to hire.',
-    icon: 'headshots',
   },
 ]
 
