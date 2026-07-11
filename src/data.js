@@ -61,20 +61,12 @@ export const SERVICES = [
     icon: 'social',
   },
   {
-    id: 'video',
-    title: 'Video Production',
+    id: 'digital-media',
+    title: 'Digital Media',
     type: 'both',
     blurb:
-      'Promos, brand films, event coverage, walkouts, testimonials, and short-form vertical content built to stop the scroll. Full shoot-to-edit or a standing content pipeline.',
+      'Video production and full-range photography under one roof — promos, brand films, event coverage, walkouts, and scroll-stopping short-form, plus commercial, product, and action stills and warm family & portrait sessions. Shot and edited to make the everyday look like a main event, as an ongoing content pipeline or a one-off shoot.',
     icon: 'video',
-  },
-  {
-    id: 'photo',
-    title: 'Photography',
-    type: 'both',
-    blurb:
-      'Commercial, event, product, and action photography. On-site at your gym, job site, or shop — images that make the everyday look like a main event.',
-    icon: 'photo',
   },
   {
     id: 'strategy',
@@ -91,14 +83,6 @@ export const SERVICES = [
     blurb:
       'Sharp, confident headshots for owners, teams, coaches, and pros. Studio or on-location — you look like the person people want to hire.',
     icon: 'headshots',
-  },
-  {
-    id: 'portrait',
-    title: 'Family & Portrait Photography',
-    type: 'shoot',
-    blurb:
-      'Portrait and family sessions with the same eye for detail and lighting. Real moments, made to last — booked as simple one-off shoots.',
-    icon: 'portrait',
   },
 ]
 
