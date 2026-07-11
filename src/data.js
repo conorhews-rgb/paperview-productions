@@ -191,7 +191,7 @@ export const ABOUT = {
     "That's what you get here: the eye and polish of a real media company, backed by the grit, discipline, and follow-through you'd expect from someone who trains. Whether you're filling classes, booking jobs, or just need photos that don't look like everyone else's — the standard is the same.",
   ],
   stats: [
-    { value: '100+', label: 'Elite athletes served' },
+    { value: '200+', label: 'Athletes served' },
     { value: '2', label: 'MMA promotions run' },
     { value: '100%', label: 'Show-up-and-deliver' },
   ],
