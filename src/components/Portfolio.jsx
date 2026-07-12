@@ -48,7 +48,7 @@ function WorkTile({ w }) {
     >
       <img
         src={asset(w.image)}
-        alt={`${w.title} — ${w.client}`}
+        alt={`${w.title}, ${w.client}`}
         loading="lazy"
         style={w.imagePosition ? { objectPosition: w.imagePosition } : undefined}
       />
@@ -87,8 +87,7 @@ export default function Portfolio() {
           <h2 className="section-title">The portfolio</h2>
           <p className="section-lede">
             A snapshot of recent projects across gyms, promotions, local
-            businesses, and private clients. Placeholders for now — real reels and
-            galleries dropping in soon.
+            businesses, and private clients.
           </p>
         </div>
 
@@ -110,11 +109,6 @@ export default function Portfolio() {
           ))}
         </div>
 
-        <p className="portfolio__note">
-          ✕ &nbsp;Placeholder images — swap in your real photos &amp; video in{' '}
-          <code>src/data.js</code>
-        </p>
-
         {INSTAGRAM.beholdFeedId && (
           <div className="portfolio__feed">
             <div className="portfolio__feed-head">
@@ -122,7 +116,7 @@ export default function Portfolio() {
                 <p className="eyebrow">Live from Instagram</p>
                 <h3 className="portfolio__feed-title">Straight from Combat Zone MMA</h3>
                 <p className="section-lede">
-                  The social we run day-to-day for Combat Zone MMA — pulled live
+                  The social I run day-to-day for Combat Zone MMA, pulled live
                   from Instagram and updated automatically as new posts go up.
                 </p>
               </div>

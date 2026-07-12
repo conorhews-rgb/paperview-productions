@@ -12,7 +12,7 @@ export default function Contact() {
 
     // No key configured yet → keep the demo success state (nothing is emailed).
     if (!CONTACT_FORM.web3formsKey) {
-      console.log('New inquiry (demo — set CONTACT_FORM.web3formsKey to email):',
+      console.log('New inquiry (demo, set CONTACT_FORM.web3formsKey to email):',
         Object.fromEntries(data.entries()))
       setStatus('sent')
       return
@@ -21,7 +21,7 @@ export default function Contact() {
     // Enrich the payload so the email is easy to read + reply to.
     data.append('access_key', CONTACT_FORM.web3formsKey)
     data.append('from_name', 'Paperview Productions Website')
-    data.append('subject', `New inquiry: ${data.get('inquiryType') || 'General'} — ${data.get('name')}`)
+    data.append('subject', `New inquiry: ${data.get('inquiryType') || 'General'} from ${data.get('name')}`)
     data.append('replyto', data.get('email'))
 
     setStatus('sending')
@@ -50,8 +50,9 @@ export default function Contact() {
             <p className="eyebrow">Let’s Talk</p>
             <h2 className="section-title">Book a shoot or<br />start a retainer</h2>
             <p className="section-lede">
-              Tell me what you’re after — a one-off session or an ongoing content
-              partner. I’ll get back to you fast with next steps and pricing.
+              Tell me what you’re after, whether that's a one-off session or an
+              ongoing content partner. I’ll get back to you fast with next steps
+              and pricing.
             </p>
 
             <div className="contact__lines">
@@ -82,7 +83,7 @@ export default function Contact() {
                 <div className="check"><Icon.check /></div>
                 <h3>Message sent</h3>
                 <p>
-                  Thanks — your inquiry’s in. I’ll be in touch within one business
+                  Thanks, your inquiry’s in. I’ll be in touch within one business
                   day. In a hurry? Call or text {BUSINESS.phone}.
                 </p>
               </div>

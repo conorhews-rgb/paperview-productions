@@ -74,8 +74,8 @@ export default function Testimonials() {
           <p className="eyebrow">In Their Words</p>
           <h2 className="section-title">Don’t take my<br />word for it</h2>
           <p className="section-lede">
-            The people who’ve trusted us with their media — including athletes who
-            do it at the highest level — say it better than I can.
+            The people who’ve trusted me with their media, including athletes who
+            compete at the highest level, say it better than I can.
           </p>
         </div>
 

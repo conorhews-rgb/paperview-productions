@@ -15,8 +15,8 @@ export default function Services() {
           <p className="eyebrow">What I Do</p>
           <h2 className="section-title">Services built to<br />make you look pro</h2>
           <p className="section-lede">
-            Everything under one roof — whether you need someone in your corner
-            every month, or a single shoot done right. Ongoing retainers and
+            Everything under one roof, whether you need someone in your corner
+            every month or a single shoot done right. Ongoing retainers and
             one-off projects both welcome.
           </p>
         </div>

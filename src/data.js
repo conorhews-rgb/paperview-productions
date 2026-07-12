@@ -57,7 +57,7 @@ export const SERVICES = [
     title: 'Social Media Management',
     type: 'retainer',
     blurb:
-      'Done-for-you posting, community engagement, and growth. I run the day-to-day so your feed looks alive and on-brand — the same work we did for Dirty Boxing Championship 6 and Combat Zone MMA.',
+      'Done-for-you posting, community engagement, and growth. I run the day-to-day so your feed looks alive and on-brand, the same way I do it for Dirty Boxing Championship 6 and Combat Zone MMA.',
     icon: 'social',
   },
   {
@@ -65,7 +65,7 @@ export const SERVICES = [
     title: 'Digital Media',
     type: 'both',
     blurb:
-      'Video production and full-range photography under one roof — promos, brand films, event coverage, walkouts, and scroll-stopping short-form, plus commercial, product, and action stills, professional headshots for owners and teams, and warm family & portrait sessions. Shot and edited to make the everyday look like a main event, as an ongoing content pipeline or a one-off shoot.',
+      'Video and photography under one roof. Promos, brand films, event coverage, walkouts, and short-form built to stop the scroll, plus commercial, product, and action photography, professional headshots for owners and teams, and warm family portrait sessions. I shoot and edit it all to make the everyday look like a main event, whether you need an ongoing content pipeline or a one-off shoot.',
     icon: 'video',
   },
   {
@@ -91,14 +91,14 @@ export const AUDIENCES = [
     id: 'trades',
     title: 'Trades & Local Business',
     copy:
-      'Contractors, service businesses, and local shops. Show the craft, build trust, and win the customer before they ever call — with content that looks the part.',
+      'Contractors, service businesses, and local shops. Show the craft, build trust, and win the customer before they ever call, with content that looks the part.',
     tag: 'Retainer + Project',
   },
   {
     id: 'people',
     title: 'Families & Individuals',
     copy:
-      'Headshots, portraits, and family sessions. No contract, no runaround — just a clean, easy booking for the photos you actually want.',
+      'Headshots, portraits, and family sessions. No contract, no runaround, just a clean, easy booking for the photos you actually want.',
     tag: 'One-off Shoots',
   },
 ]
@@ -170,14 +170,14 @@ export const GALLERIES = {
   'athlete-portraits': {
     title: 'Athlete Portrait Series',
     intro:
-      'Portraits of fighters, coaches, and competitors — shot on location and in studio. A growing collection of the athletes we work with.',
+      'Portraits of fighters, coaches, and competitors, shot on location and in studio. A growing collection of the athletes I work with.',
     items: [
-      { type: 'image', src: '/galleries/athlete/jon-jones.jpg', caption: 'Jon Jones — UFC LHW/HW Champion' },
-      { type: 'image', src: '/galleries/athlete/conor-mcgregor.jpg', caption: 'Conor McGregor — UFC FW/LW Champion' },
-      { type: 'image', src: '/galleries/athlete/mike-perry.jpg', caption: 'Mike Perry — BKFC King of Violence Champion' },
-      { type: 'image', src: '/galleries/athlete/calvin-kattar.jpg', caption: 'Calvin Kattar — UFC Featherweight' },
-      { type: 'image', src: '/galleries/athlete/dillon-danis.jpg', caption: 'Dillon Danis — Misfits MMA Welterweight Champion' },
-      { type: 'image', src: '/galleries/athlete/rob-font.jpg', caption: 'Rob Font — UFC Bantamweight' },
+      { type: 'image', src: '/galleries/athlete/jon-jones.jpg', caption: 'Jon Jones, UFC LHW/HW Champion' },
+      { type: 'image', src: '/galleries/athlete/conor-mcgregor.jpg', caption: 'Conor McGregor, UFC FW/LW Champion' },
+      { type: 'image', src: '/galleries/athlete/mike-perry.jpg', caption: 'Mike Perry, BKFC King of Violence Champion' },
+      { type: 'image', src: '/galleries/athlete/calvin-kattar.jpg', caption: 'Calvin Kattar, UFC Featherweight' },
+      { type: 'image', src: '/galleries/athlete/dillon-danis.jpg', caption: 'Dillon Danis, Misfits MMA Welterweight Champion' },
+      { type: 'image', src: '/galleries/athlete/rob-font.jpg', caption: 'Rob Font, UFC Bantamweight' },
     ],
   },
 }
@@ -186,9 +186,9 @@ export const GALLERIES = {
 export const ABOUT = {
   headshot: '/about-founder.jpg',
   paragraphs: [
-    "I'm the founder of Paperview Productions — a digital media and content company based in the Haverhill, MA area. I build content and run social media for businesses that want to look as serious as they actually are: combat sports gyms, contractors and trades, local shops, and the people who run them.",
-    "I'm also a fighter. I've trained and competed, and I've handled media for elite-level athletes — names like Jon Jones, Gordon Ryan, John Danaher, Rob Font, and Calvin Kattar — plus running social for Dirty Boxing Championship 6 and Calvin Kattar's Combat Zone MMA. When athletes at that level trust you with their image, you learn how to make anyone look their best under pressure.",
-    "That's what you get here: the eye and polish of a real media company, backed by the grit, discipline, and follow-through you'd expect from someone who trains. Whether you're filling classes, booking jobs, or just need photos that don't look like everyone else's — the standard is the same.",
+    "I'm the founder of Paperview Productions, a digital media and content company based in the Haverhill, MA area. I build content and run social media for businesses that want to look as serious as they actually are: combat sports gyms, contractors and trades, local shops, and the people who run them.",
+    "I'm also a fighter. I've trained and competed, and I've handled media for elite-level athletes like Jon Jones, Gordon Ryan, John Danaher, Rob Font, and Calvin Kattar, plus running social for Dirty Boxing Championship 6 and Calvin Kattar's Combat Zone MMA. When athletes at that level trust you with their image, you learn how to make anyone look their best under pressure.",
+    "That's what you get here: the eye and polish of a real media company, backed by the grit, discipline, and follow-through you'd expect from someone who trains. Whether you're filling classes, booking jobs, or just need photos that don't look like everyone else's, the standard stays the same.",
   ],
   stats: [
     { value: '200+', label: 'Athletes served' },
@@ -210,7 +210,7 @@ export const TESTIMONIALS = [
     name: 'Jon Jones',
     role: 'UFC Champion · MMA GOAT',
     caption:
-      'A shout-out from Jon Jones — UFC champion and the fighter many consider the greatest of all time.',
+      'A shout-out from Jon Jones, UFC champion and the fighter many consider the greatest of all time.',
     featured: true,
   },
   {
@@ -276,5 +276,5 @@ export const INQUIRY_TYPES = [
   'Photography',
   'Professional Headshots',
   'Family / Portrait Session',
-  'Not sure yet — let’s talk',
+  "Not sure yet, let's talk",
 ]

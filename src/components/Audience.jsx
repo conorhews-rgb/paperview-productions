@@ -9,7 +9,7 @@ export default function Audience() {
           <h2 className="section-title">Different clients.<br />Same standard.</h2>
           <p className="section-lede">
             You don't have to be a fighter to work with me. The gym down the street
-            and the contractor across town get the exact same care — and so do you.
+            and the contractor across town get the exact same care, and so do you.
           </p>
         </div>
 

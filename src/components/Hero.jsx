@@ -43,7 +43,7 @@ export default function Hero() {
 
           <p className="hero__sub">
             Full-service video, photography, and social media for businesses that
-            mean business — <strong>combat gyms, contractors, local shops,</strong> and
+            mean business: <strong>combat gyms, contractors, local shops,</strong> and
             the people who run them. Built with the eye of a media pro and the
             discipline of a fighter.
           </p>
