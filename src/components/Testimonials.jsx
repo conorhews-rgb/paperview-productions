@@ -1,9 +1,50 @@
+import { useEffect, useRef, useState } from 'react'
 import { TESTIMONIALS, asset } from '../data'
 
-function VideoTestimonial({ t }) {
+// Fires once when the wrapped content first scrolls into view, so the whole
+// testimonials block (video, names, descriptions) can fade up together.
+// Respects prefers-reduced-motion by skipping straight to visible.
+function useRevealOnScroll() {
+  const ref = useRef(null)
+  const [visible, setVisible] = useState(false)
+
+  useEffect(() => {
+    const el = ref.current
+    if (!el) return
+
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      setVisible(true)
+      return
+    }
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setVisible(true)
+          observer.disconnect()
+        }
+      },
+      { threshold: 0.15, rootMargin: '0px 0px -10% 0px' },
+    )
+    observer.observe(el)
+    return () => observer.disconnect()
+  }, [])
+
+  return [ref, visible]
+}
+
+// Merges a base className with the fade-up reveal classes/timing.
+function reveal(baseClass, visible, delayMs) {
+  return {
+    className: `${baseClass ? baseClass + ' ' : ''}reveal-item${visible ? ' is-visible' : ''}`,
+    style: { transitionDelay: `${delayMs}ms` },
+  }
+}
+
+function VideoTestimonial({ t, visible, baseDelay = 0 }) {
   return (
     <div className="testimonial testimonial--video">
-      <div className="testimonial__player">
+      <div {...reveal('testimonial__player', visible, baseDelay)}>
         <video
           controls
           preload="metadata"
@@ -15,9 +56,16 @@ function VideoTestimonial({ t }) {
         </video>
       </div>
       <div className="testimonial__meta">
-        <span className="testimonial__quotemark" aria-hidden="true">“</span>
-        <p className="testimonial__caption">{t.caption}</p>
-        <div className="testimonial__attr">
+        <span
+          {...reveal('testimonial__quotemark', visible, baseDelay + 150)}
+          aria-hidden="true"
+        >
+          “
+        </span>
+        <p {...reveal('testimonial__caption', visible, baseDelay + 150)}>
+          {t.caption}
+        </p>
+        <div {...reveal('testimonial__attr', visible, baseDelay + 300)}>
           <span className="testimonial__name">{t.name}</span>
           <span className="testimonial__role">{t.role}</span>
         </div>
@@ -26,10 +74,10 @@ function VideoTestimonial({ t }) {
   )
 }
 
-function VideoCard({ t }) {
+function VideoCard({ t, visible, baseDelay = 0 }) {
   return (
     <figure className="testimonial-card">
-      <div className="testimonial-card__player">
+      <div {...reveal('testimonial-card__player', visible, baseDelay)}>
         <video
           controls
           preload="metadata"
@@ -39,7 +87,7 @@ function VideoCard({ t }) {
           <source src={asset(t.video)} type="video/mp4" />
         </video>
       </div>
-      <figcaption>
+      <figcaption {...reveal('', visible, baseDelay + 150)}>
         <span className="testimonial__name">{t.name}</span>
         <span className="testimonial__role">{t.role}</span>
         <p className="testimonial-card__caption">{t.caption}</p>
@@ -48,12 +96,14 @@ function VideoCard({ t }) {
   )
 }
 
-function TextTestimonial({ t }) {
+function TextTestimonial({ t, visible, baseDelay = 0 }) {
   return (
     <figure className="testimonial testimonial--text">
-      <span className="testimonial__quotemark" aria-hidden="true">“</span>
-      <blockquote>{t.quote}</blockquote>
-      <figcaption>
+      <span {...reveal('testimonial__quotemark', visible, baseDelay)} aria-hidden="true">
+        “
+      </span>
+      <blockquote {...reveal('', visible, baseDelay + 100)}>{t.quote}</blockquote>
+      <figcaption {...reveal('', visible, baseDelay + 250)}>
         <span className="testimonial__name">{t.name}</span>
         <span className="testimonial__role">{t.role}</span>
       </figcaption>
@@ -62,6 +112,8 @@ function TextTestimonial({ t }) {
 }
 
 export default function Testimonials() {
+  const [ref, visible] = useRevealOnScroll()
+
   if (!TESTIMONIALS.length) return null
 
   const featured = TESTIMONIALS.find((t) => t.featured) || TESTIMONIALS[0]
@@ -79,23 +131,26 @@ export default function Testimonials() {
           </p>
         </div>
 
-        {featured.type === 'video' ? (
-          <VideoTestimonial t={featured} />
-        ) : (
-          <TextTestimonial t={featured} />
-        )}
+        <div ref={ref}>
+          {featured.type === 'video' ? (
+            <VideoTestimonial t={featured} visible={visible} baseDelay={0} />
+          ) : (
+            <TextTestimonial t={featured} visible={visible} baseDelay={0} />
+          )}
 
-        {rest.length > 0 && (
-          <div className="testimonials__grid">
-            {rest.map((t) =>
-              t.type === 'video' ? (
-                <VideoCard key={t.id} t={t} />
-              ) : (
-                <TextTestimonial key={t.id} t={t} />
-              ),
-            )}
-          </div>
-        )}
+          {rest.length > 0 && (
+            <div className="testimonials__grid">
+              {rest.map((t, i) => {
+                const baseDelay = 350 + i * 150
+                return t.type === 'video' ? (
+                  <VideoCard key={t.id} t={t} visible={visible} baseDelay={baseDelay} />
+                ) : (
+                  <TextTestimonial key={t.id} t={t} visible={visible} baseDelay={baseDelay} />
+                )
+              })}
+            </div>
+          )}
+        </div>
       </div>
     </section>
   )

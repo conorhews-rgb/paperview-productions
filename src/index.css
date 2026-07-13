@@ -701,6 +701,20 @@ button { font-family: inherit; cursor: pointer; }
 /* ==========================================================================
    TESTIMONIALS
    ========================================================================== */
+/* Scroll-triggered fade-up: elements start invisible and slightly lower,
+   then rise into their normal (already-laid-out) position and opacity.
+   Layout never shifts because transform doesn't affect document flow. */
+.reveal-item {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.75s cubic-bezier(0.16, 0.84, 0.44, 1),
+    transform 0.75s cubic-bezier(0.16, 0.84, 0.44, 1);
+  will-change: opacity, transform;
+}
+.reveal-item.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
 .testimonial--video {
   display: grid;
   grid-template-columns: 1.5fr 1fr;
@@ -1193,4 +1207,5 @@ button { font-family: inherit; cursor: pointer; }
 @media (prefers-reduced-motion: reduce) {
   * { animation: none !important; scroll-behavior: auto; }
   .marquee__track { animation: none; }
+  .reveal-item { transition: none; opacity: 1; transform: none; }
 }
