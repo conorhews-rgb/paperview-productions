@@ -57,7 +57,7 @@ export const SERVICES = [
     title: 'Social Media Management',
     type: 'retainer',
     blurb:
-      'Done-for-you posting, community engagement, and growth. I run the day-to-day so your feed looks alive and on-brand, the same way I do it for Dirty Boxing Championship 6 and Combat Zone MMA.',
+      'Done-for-you posting, community engagement, and growth. We run the day-to-day so your feed looks alive and on-brand, the same way we do it for Dirty Boxing Championship 6 and Combat Zone MMA.',
     icon: 'social',
   },
   {
@@ -65,7 +65,7 @@ export const SERVICES = [
     title: 'Digital Media',
     type: 'both',
     blurb:
-      'Video and photography under one roof. Promos, brand films, event coverage, walkouts, and short-form built to stop the scroll, plus commercial, product, and action photography, professional headshots for owners and teams, and warm family portrait sessions. I shoot and edit it all to make the everyday look like a main event, whether you need an ongoing content pipeline or a one-off shoot.',
+      'Video and photography under one roof. Promos, brand films, event coverage, walkouts, and short-form built to stop the scroll, plus commercial, product, and action photography, professional headshots for owners and teams, and warm family portrait sessions. We shoot and edit it all to make the everyday look like a main event, whether you need an ongoing content pipeline or a one-off shoot.',
     icon: 'video',
   },
   {
@@ -170,7 +170,7 @@ export const GALLERIES = {
   'athlete-portraits': {
     title: 'Athlete Portrait Series',
     intro:
-      'Portraits of fighters, coaches, and competitors, shot on location and in studio. A growing collection of the athletes I work with.',
+      'Portraits of fighters, coaches, and competitors, shot on location and in studio. A growing collection of the athletes we work with.',
     items: [
       { type: 'image', src: '/galleries/athlete/jon-jones.jpg', caption: 'Jon Jones, UFC LHW/HW Champion' },
       { type: 'image', src: '/galleries/athlete/conor-mcgregor.jpg', caption: 'Conor McGregor, UFC FW/LW Champion' },
@@ -186,9 +186,9 @@ export const GALLERIES = {
 export const ABOUT = {
   headshot: '/about-founder.jpg',
   paragraphs: [
-    "I'm the founder of Paperview Productions, a digital media and content company based in the Haverhill, MA area. I build content and run social media for businesses that want to look as serious as they actually are: combat sports gyms, contractors and trades, local shops, and the people who run them.",
-    "I'm also a fighter. I've trained and competed, and I've handled media for elite-level athletes like Jon Jones, Gordon Ryan, John Danaher, Rob Font, and Calvin Kattar, plus running social for Dirty Boxing Championship 6 and Calvin Kattar's Combat Zone MMA. When athletes at that level trust you with their image, you learn how to make anyone look their best under pressure.",
-    "That's what you get here: the eye and polish of a real media company, backed by the grit, discipline, and follow-through you'd expect from someone who trains. Whether you're filling classes, booking jobs, or just need photos that don't look like everyone else's, the standard stays the same.",
+    "I'm the founder of Paperview Productions, a digital media and content company based in the Haverhill, MA area. We build content and run social media for businesses that want to look as serious as they actually are: combat sports gyms, contractors and trades, local shops, and the people who run them.",
+    "I'm also a fighter. I've trained and competed, and our team has handled media for elite-level athletes like Jon Jones, Gordon Ryan, John Danaher, Rob Font, and Calvin Kattar, plus running social for Dirty Boxing Championship 6 and Calvin Kattar's Combat Zone MMA. When athletes at that level trust you with their image, you learn how to make anyone look their best under pressure.",
+    "That's what you get with our team: the eye and polish of a real media company, backed by the grit, discipline, and follow-through you'd expect from people who train. Whether you're filling classes, booking jobs, or just need photos that don't look like everyone else's, the standard stays the same.",
   ],
   stats: [
     { value: '200+', label: 'Athletes served' },

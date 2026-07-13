@@ -3,7 +3,7 @@ import { asset } from '../data'
 
 const LINKS = [
   ['Services', '#services'],
-  ['Who I Work With', '#audience'],
+  ['Who We Work With', '#audience'],
   ['Work', '#work'],
   ['About', '#about'],
 ]

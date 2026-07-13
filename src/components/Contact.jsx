@@ -50,8 +50,8 @@ export default function Contact() {
             <p className="eyebrow">Let’s Talk</p>
             <h2 className="section-title">Book a shoot or<br />start a retainer</h2>
             <p className="section-lede">
-              Tell me what you’re after, whether that's a one-off session or an
-              ongoing content partner. I’ll get back to you fast with next steps
+              Tell us what you’re after, whether that's a one-off session or an
+              ongoing content partner. We’ll get back to you fast with next steps
               and pricing.
             </p>
 
@@ -83,7 +83,7 @@ export default function Contact() {
                 <div className="check"><Icon.check /></div>
                 <h3>Message sent</h3>
                 <p>
-                  Thanks, your inquiry’s in. I’ll be in touch within one business
+                  Thanks, your inquiry’s in. We’ll be in touch within one business
                   day. In a hurry? Call or text {BUSINESS.phone}.
                 </p>
               </div>

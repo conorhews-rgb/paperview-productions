@@ -12,7 +12,7 @@ export default function Services() {
     <section className="section" id="services">
       <div className="container">
         <div className="section-head">
-          <p className="eyebrow">What I Do</p>
+          <p className="eyebrow">What We Do</p>
           <h2 className="section-title">Services built to<br />make you look pro</h2>
           <p className="section-lede">
             Everything under one roof, whether you need someone in your corner

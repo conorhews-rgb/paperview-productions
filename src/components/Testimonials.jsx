@@ -72,10 +72,10 @@ export default function Testimonials() {
       <div className="container">
         <div className="section-head">
           <p className="eyebrow">In Their Words</p>
-          <h2 className="section-title">Don’t take my<br />word for it</h2>
+          <h2 className="section-title">Don’t take our<br />word for it</h2>
           <p className="section-lede">
-            The people who’ve trusted me with their media, including athletes who
-            compete at the highest level, say it better than I can.
+            The people who’ve trusted us with their media, including athletes who
+            compete at the highest level, say it better than we can.
           </p>
         </div>
 

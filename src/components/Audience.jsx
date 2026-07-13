@@ -5,10 +5,10 @@ export default function Audience() {
     <section className="section section--alt" id="audience">
       <div className="container">
         <div className="section-head">
-          <p className="eyebrow">Who I Work With</p>
+          <p className="eyebrow">Who We Work With</p>
           <h2 className="section-title">Different clients.<br />Same standard.</h2>
           <p className="section-lede">
-            You don't have to be a fighter to work with me. The gym down the street
+            You don't have to be a fighter to work with us. The gym down the street
             and the contractor across town get the exact same care, and so do you.
           </p>
         </div>

@@ -116,7 +116,7 @@ export default function Portfolio() {
                 <p className="eyebrow">Live from Instagram</p>
                 <h3 className="portfolio__feed-title">Straight from Combat Zone MMA</h3>
                 <p className="section-lede">
-                  The social I run day-to-day for Combat Zone MMA, pulled live
+                  The social we run day-to-day for Combat Zone MMA, pulled live
                   from Instagram and updated automatically as new posts go up.
                 </p>
               </div>
