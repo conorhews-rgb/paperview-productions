@@ -34,12 +34,17 @@ export const BUSINESS = {
 // hide the link everywhere until it's set.
 export const PIXIESET_URL = 'https://paperviewproductions.pixieset.com'
 
-// Auto-updating "latest event" cover photo in the Buy Event Photos section.
-// Points at a small Cloudflare Worker (see /worker/pixieset-latest.js) that
-// reads your Pixieset storefront and returns the newest gallery's name,
-// cover photo, and link as JSON. Leave empty to keep the static camera-icon
-// badge instead (used until the Worker is deployed).
-export const PIXIESET_LATEST_API = ''
+// "Latest event" cover photo shown in the Buy Event Photos section.
+// Pixieset blocks server-side/bot requests (confirmed: even a Cloudflare
+// Worker gets a 403), so this can't auto-update itself. Update it by hand
+// whenever a new gallery goes up — just ask, and it's a 1-line change + a
+// ~1 minute deploy. Leave `name` empty to fall back to the generic camera
+// icon badge instead.
+export const PIXIESET_LATEST = {
+  name: 'Ultimate Glow 5th Year Anniversary',
+  image: 'https://images.pixieset.com/307938711/f18bd86668161a58fb0b0a073d9b39b0-large.jpg',
+  url: 'https://paperviewproductions.pixieset.com/ultimateglow5thyearanniversary/',
+}
 
 // --- Hero --------------------------------------------------------------------
 // Static hero background photo. Set `video` to an mp4 path later if you ever

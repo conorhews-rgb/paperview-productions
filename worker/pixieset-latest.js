@@ -1,26 +1,22 @@
 // ============================================================================
-// Cloudflare Worker: latest Pixieset gallery proxy
+// Cloudflare Worker: latest Pixieset gallery proxy (NOT CURRENTLY USED)
 // ----------------------------------------------------------------------------
-// Deploy this on Cloudflare Workers (free tier). It fetches your Pixieset
-// storefront server-side (the browser can't do this directly — Pixieset
-// doesn't allow cross-origin requests), pulls out the most recently posted
-// gallery's name, cover photo, and link, and returns it as JSON with CORS
-// headers open so paperviewproductions.com (or the GitHub Pages URL) can
-// fetch it directly.
+// STATUS: deployed and tested, but Pixieset's storefront returns 403 to
+// this Worker's requests (confirmed even with full browser-style headers —
+// it's blocking based on network/TLS fingerprint, not user-agent, which
+// header changes can't fix). A real browser loads the page fine, so a
+// server-side scraper is a dead end without a paid headless-browser
+// rendering service, overkill for this feature.
 //
-// SETUP (no coding needed, just paste-and-deploy):
-//   1. Sign up free at https://dash.cloudflare.com/sign-up
-//   2. Workers & Pages -> Create -> Create Worker
-//   3. Deploy the default template once (to create it), then "Edit code"
-//   4. Replace ALL the code in the editor with this file's contents
-//   5. Save and Deploy
-//   6. Copy the URL it gives you (looks like
-//      https://<worker-name>.<your-subdomain>.workers.dev) and send it back
-//      to be wired into the website (PIXIESET_LATEST_API in src/data.js).
+// The site instead uses a manually-updated PIXIESET_LATEST object in
+// src/data.js — update it by hand whenever a new gallery goes up (takes
+// under a minute). This file is kept for reference in case Pixieset's
+// bot protection ever changes, or a future fix is worth revisiting.
 //
-// If Pixieset ever redesigns their storefront page, this scraper may need
-// a small update to match their new HTML. It fails safe: the website falls
-// back to a generic camera icon if this ever returns an error.
+// Original design: fetch the Pixieset storefront server-side (the browser
+// can't do this directly cross-origin), pull the most recently posted
+// gallery's name/cover/link out of the HTML, and return it as JSON with
+// CORS open so the site could fetch it directly on page load.
 // ============================================================================
 
 const STOREFRONT_URL = 'https://paperviewproductions.pixieset.com/'

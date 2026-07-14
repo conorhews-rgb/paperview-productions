@@ -1,35 +1,10 @@
-import { useEffect, useState } from 'react'
-import { PIXIESET_URL, PIXIESET_LATEST_API } from '../data'
+import { PIXIESET_URL, PIXIESET_LATEST } from '../data'
 import { Icon } from './Icons'
 
-// Fetches the latest gallery { name, image, url } from the Cloudflare Worker.
-// Fails silently to null so the section falls back to the generic icon badge.
-function useLatestGallery() {
-  const [gallery, setGallery] = useState(null)
-
-  useEffect(() => {
-    if (!PIXIESET_LATEST_API) return
-    let active = true
-    fetch(PIXIESET_LATEST_API)
-      .then((r) => (r.ok ? r.json() : Promise.reject(new Error(`status ${r.status}`))))
-      .then((data) => {
-        if (active && data && !data.error) setGallery(data)
-      })
-      .catch(() => {
-        /* keep the icon-badge fallback */
-      })
-    return () => {
-      active = false
-    }
-  }, [])
-
-  return gallery
-}
-
 export default function EventPhotos() {
-  const gallery = useLatestGallery()
-
   if (!PIXIESET_URL) return null
+
+  const gallery = PIXIESET_LATEST?.name ? PIXIESET_LATEST : null
 
   return (
     <section className="section section--alt" id="event-photos">
