@@ -14,9 +14,10 @@ export default function EventPhotos() {
             <p className="eyebrow">Were You There?</p>
             <h2 className="section-title">Get your event photos</h2>
             <p className="section-lede">
-              Shot at a fight night, weigh-in, or event we covered? Browse the
-              full gallery and buy your photos straight from the source, no
-              watermarks, high-res downloads and prints available.
+              Were you at a fight night, grappling tournament, or event we
+              covered? Browse the full gallery and buy your photos straight
+              from the source, no watermarks, high-res downloads and prints
+              available.
             </p>
             <a
               className="btn btn--primary eventphotos__cta"
