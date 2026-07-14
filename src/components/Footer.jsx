@@ -1,4 +1,4 @@
-import { BUSINESS, asset } from '../data'
+import { BUSINESS, PIXIESET_URL, asset } from '../data'
 
 export default function Footer() {
   const year = new Date().getFullYear()
@@ -33,6 +33,11 @@ export default function Footer() {
             <a href="#work">Portfolio</a>
             <a href="#about">About</a>
             <a href="#contact">Contact</a>
+            {PIXIESET_URL && (
+              <a href={PIXIESET_URL} target="_blank" rel="noreferrer">
+                Buy Event Photos
+              </a>
+            )}
           </div>
           <div className="footer__col">
             <h4>Get In Touch</h4>

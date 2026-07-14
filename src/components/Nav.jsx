@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { asset } from '../data'
+import { asset, PIXIESET_URL } from '../data'
 
 const LINKS = [
   ['Services', '#services'],
@@ -38,6 +38,17 @@ export default function Nav() {
               {label}
             </a>
           ))}
+          {PIXIESET_URL && (
+            <a
+              href={PIXIESET_URL}
+              target="_blank"
+              rel="noreferrer"
+              className="nav__photos"
+              onClick={close}
+            >
+              Buy Event Photos
+            </a>
+          )}
           <a href="#contact" className="btn btn--primary" onClick={close}>
             Book / Inquire
           </a>

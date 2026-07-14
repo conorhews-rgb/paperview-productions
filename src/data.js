@@ -27,6 +27,13 @@ export const BUSINESS = {
   bookingCalendar: '#contact', // e.g. a Calendly URL later
 }
 
+// --- Event photo sales (Pixieset) ---------------------------------------------
+// Powers the "Buy Event Photos" link in the nav, footer, and the dedicated
+// section on the page. Paste your real Pixieset gallery/storefront URL below
+// (e.g. 'https://paperviewproductions.pixieset.com'). Leave it empty ('') to
+// hide the link everywhere until it's set.
+export const PIXIESET_URL = ''
+
 // --- Hero --------------------------------------------------------------------
 // Static hero background photo. Set `video` to an mp4 path later if you ever
 // want a looping reel instead (the photo then acts as its poster/still).

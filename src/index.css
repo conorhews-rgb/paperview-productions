@@ -199,6 +199,21 @@ button { font-family: inherit; cursor: pointer; }
 .nav__links a.btn--primary,
 .nav__links a.btn--primary:hover { color: #14100a; font-weight: 700; }
 
+/* "Buy Event Photos" pill: distinct from plain anchor links, reads as a
+   secondary action next to the primary Book/Inquire button. */
+.nav__links a.nav__photos {
+  padding: 8px 16px;
+  border: 1px solid var(--smoke);
+  border-radius: 100px;
+  color: var(--gold-bright);
+  transition: border-color 0.2s ease, background 0.2s ease, color 0.2s ease;
+}
+.nav__links a.nav__photos:hover {
+  border-color: var(--gold);
+  background: rgba(201, 162, 75, 0.08);
+  color: var(--gold-bright);
+}
+
 .nav__toggle {
   display: none;
   background: none;
@@ -645,6 +660,42 @@ button { font-family: inherit; cursor: pointer; }
 
 @media (max-width: 640px) {
   .portfolio__feed-head { align-items: flex-start; }
+}
+
+/* ==========================================================================
+   EVENT PHOTOS (Pixieset)
+   ========================================================================== */
+.eventphotos {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: clamp(28px, 5vw, 56px);
+  background: var(--ink-3);
+  border: 1px solid var(--smoke);
+  border-radius: var(--radius);
+  padding: clamp(32px, 5vw, 52px);
+}
+.eventphotos__copy { max-width: 640px; }
+.eventphotos__copy .section-title { margin-bottom: 14px; }
+.eventphotos__copy .section-lede { margin-bottom: 28px; }
+.eventphotos__cta svg { width: 18px; height: 18px; }
+.eventphotos__badge {
+  flex-shrink: 0;
+  width: 132px;
+  height: 132px;
+  border-radius: 50%;
+  background: rgba(201, 162, 75, 0.08);
+  border: 1px solid rgba(201, 162, 75, 0.3);
+  display: grid;
+  place-items: center;
+  color: var(--gold);
+}
+.eventphotos__badge svg { width: 52px; height: 52px; }
+
+@media (max-width: 820px) {
+  .eventphotos { flex-direction: column; text-align: center; }
+  .eventphotos__copy { max-width: none; }
+  .eventphotos__copy .eventphotos__cta { margin: 0 auto; }
 }
 
 /* ==========================================================================
