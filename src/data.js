@@ -32,7 +32,7 @@ export const BUSINESS = {
 // section on the page. Paste your real Pixieset gallery/storefront URL below
 // (e.g. 'https://paperviewproductions.pixieset.com'). Leave it empty ('') to
 // hide the link everywhere until it's set.
-export const PIXIESET_URL = ''
+export const PIXIESET_URL = 'https://paperviewproductions.pixieset.com'
 
 // --- Hero --------------------------------------------------------------------
 // Static hero background photo. Set `video` to an mp4 path later if you ever
