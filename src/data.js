@@ -34,6 +34,13 @@ export const BUSINESS = {
 // hide the link everywhere until it's set.
 export const PIXIESET_URL = 'https://paperviewproductions.pixieset.com'
 
+// Auto-updating "latest event" cover photo in the Buy Event Photos section.
+// Points at a small Cloudflare Worker (see /worker/pixieset-latest.js) that
+// reads your Pixieset storefront and returns the newest gallery's name,
+// cover photo, and link as JSON. Leave empty to keep the static camera-icon
+// badge instead (used until the Worker is deployed).
+export const PIXIESET_LATEST_API = ''
+
 // --- Hero --------------------------------------------------------------------
 // Static hero background photo. Set `video` to an mp4 path later if you ever
 // want a looping reel instead (the photo then acts as its poster/still).

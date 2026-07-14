@@ -692,10 +692,79 @@ button { font-family: inherit; cursor: pointer; }
 }
 .eventphotos__badge svg { width: 52px; height: 52px; }
 
+/* Live cover photo of the most recently posted gallery (replaces the icon
+   badge once the Cloudflare Worker returns data). */
+.eventphotos__latest {
+  position: relative;
+  flex-shrink: 0;
+  display: block;
+  width: 220px;
+  aspect-ratio: 4 / 5;
+  border-radius: var(--radius);
+  overflow: hidden;
+  border: 1px solid var(--smoke);
+}
+.eventphotos__latest::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: var(--gold-grad);
+  z-index: 2;
+}
+.eventphotos__latest img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: grayscale(0.35) contrast(1.06) brightness(0.85);
+  transition: transform 0.5s ease, filter 0.3s ease;
+}
+.eventphotos__latest:hover img {
+  transform: scale(1.05);
+  filter: grayscale(0) contrast(1.08) brightness(0.95);
+}
+.eventphotos__latest-tag {
+  position: absolute;
+  left: 10px; right: 10px; bottom: 10px;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 7px 10px;
+  border-radius: 100px;
+  background: rgba(8, 8, 10, 0.78);
+  backdrop-filter: blur(4px);
+  font-family: var(--cond);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-size: 0.66rem;
+  color: var(--bone);
+  line-height: 1.2;
+}
+.eventphotos__latest-dot {
+  flex-shrink: 0;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--gold-bright);
+  box-shadow: 0 0 0 0 rgba(233, 206, 130, 0.6);
+  animation: eventphotos-pulse 2s infinite;
+}
+@keyframes eventphotos-pulse {
+  0% { box-shadow: 0 0 0 0 rgba(233, 206, 130, 0.55); }
+  70% { box-shadow: 0 0 0 6px rgba(233, 206, 130, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(233, 206, 130, 0); }
+}
+
 @media (max-width: 820px) {
   .eventphotos { flex-direction: column; text-align: center; }
   .eventphotos__copy { max-width: none; }
   .eventphotos__copy .eventphotos__cta { margin: 0 auto; }
+  .eventphotos__latest { width: 200px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .eventphotos__latest-dot { animation: none; }
 }
 
 /* ==========================================================================

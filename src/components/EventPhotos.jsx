@@ -1,7 +1,34 @@
-import { PIXIESET_URL } from '../data'
+import { useEffect, useState } from 'react'
+import { PIXIESET_URL, PIXIESET_LATEST_API } from '../data'
 import { Icon } from './Icons'
 
+// Fetches the latest gallery { name, image, url } from the Cloudflare Worker.
+// Fails silently to null so the section falls back to the generic icon badge.
+function useLatestGallery() {
+  const [gallery, setGallery] = useState(null)
+
+  useEffect(() => {
+    if (!PIXIESET_LATEST_API) return
+    let active = true
+    fetch(PIXIESET_LATEST_API)
+      .then((r) => (r.ok ? r.json() : Promise.reject(new Error(`status ${r.status}`))))
+      .then((data) => {
+        if (active && data && !data.error) setGallery(data)
+      })
+      .catch(() => {
+        /* keep the icon-badge fallback */
+      })
+    return () => {
+      active = false
+    }
+  }, [])
+
+  return gallery
+}
+
 export default function EventPhotos() {
+  const gallery = useLatestGallery()
+
   if (!PIXIESET_URL) return null
 
   return (
@@ -25,9 +52,26 @@ export default function EventPhotos() {
               <Icon.photo /> Browse &amp; Buy Photos
             </a>
           </div>
-          <div className="eventphotos__badge" aria-hidden="true">
-            <Icon.photo />
-          </div>
+
+          {gallery ? (
+            <a
+              className="eventphotos__latest"
+              href={gallery.url}
+              target="_blank"
+              rel="noreferrer"
+              aria-label={`View the ${gallery.name} gallery`}
+            >
+              <img src={gallery.image} alt={gallery.name} loading="lazy" />
+              <span className="eventphotos__latest-tag">
+                <span className="eventphotos__latest-dot" aria-hidden="true" />
+                Latest: {gallery.name}
+              </span>
+            </a>
+          ) : (
+            <div className="eventphotos__badge" aria-hidden="true">
+              <Icon.photo />
+            </div>
+          )}
         </div>
       </div>
     </section>
