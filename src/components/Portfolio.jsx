@@ -1,6 +1,5 @@
 import { useState } from 'react'
-import BeholdWidget from '@behold/react'
-import { PORTFOLIO, PORTFOLIO_FILTERS, INSTAGRAM, asset } from '../data'
+import { PORTFOLIO, PORTFOLIO_FILTERS, asset } from '../data'
 import { Icon } from './Icons'
 
 // A portfolio tile. Video items show a poster + play badge, and swap to an
@@ -108,32 +107,6 @@ export default function Portfolio() {
             <WorkTile key={w.id} w={w} />
           ))}
         </div>
-
-        {INSTAGRAM.beholdFeedId && (
-          <div className="portfolio__feed">
-            <div className="portfolio__feed-head">
-              <div>
-                <p className="eyebrow">Live from Instagram</p>
-                <h3 className="portfolio__feed-title">Straight from Combat Zone MMA</h3>
-                <p className="section-lede">
-                  The social we run day-to-day for Combat Zone MMA, pulled live
-                  from Instagram and updated automatically as new posts go up.
-                </p>
-              </div>
-              <a
-                className="btn btn--ghost portfolio__feed-follow"
-                href={INSTAGRAM.url}
-                target="_blank"
-                rel="noreferrer"
-              >
-                <Icon.instagram /> Follow @{INSTAGRAM.handle}
-              </a>
-            </div>
-            <div className="portfolio__feed-widget">
-              <BeholdWidget feedId={INSTAGRAM.beholdFeedId} />
-            </div>
-          </div>
-        )}
       </div>
     </section>
   )

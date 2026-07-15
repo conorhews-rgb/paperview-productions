@@ -615,13 +615,8 @@ button { font-family: inherit; cursor: pointer; }
 }
 
 /* ==========================================================================
-   INSTAGRAM FEED — Behold widget in the Portfolio section
+   INSTAGRAM FEED — standalone section (Behold widget)
    ========================================================================== */
-.portfolio__feed {
-  margin-top: clamp(48px, 7vw, 80px);
-  padding-top: clamp(40px, 6vw, 64px);
-  border-top: 1px solid var(--smoke);
-}
 .portfolio__feed-head {
   display: flex;
   justify-content: space-between;
