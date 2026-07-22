@@ -10,6 +10,9 @@ export default function GalleryPage({ data, onClose }) {
   // as one sequence, and remember where each group starts.
   const groups = data.groups || null
   const items = groups ? groups.flatMap((g) => g.items) : data.items || []
+  // `captions: false` hides the visible captions. The text stays on each item
+  // and is still used for alt text and the tile's accessible name.
+  const showCaptions = data.captions !== false
   const groupStart = []
   if (groups) {
     groups.reduce((n, g) => (groupStart.push(n), n + g.items.length), 0)
@@ -47,7 +50,9 @@ export default function GalleryPage({ data, onClose }) {
           </span>
         )}
       </button>
-      {it.caption && <figcaption className="gallery__cap">{it.caption}</figcaption>}
+      {showCaptions && it.caption && (
+        <figcaption className="gallery__cap">{it.caption}</figcaption>
+      )}
     </figure>
   )
 
@@ -125,7 +130,9 @@ export default function GalleryPage({ data, onClose }) {
             ) : (
               <img src={asset(items[active].src)} alt={items[active].caption || ''} />
             )}
-            {items[active].caption && <p className="lightbox__cap">{items[active].caption}</p>}
+            {showCaptions && items[active].caption && (
+              <p className="lightbox__cap">{items[active].caption}</p>
+            )}
           </div>
         </div>
       )}

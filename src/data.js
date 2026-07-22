@@ -208,6 +208,7 @@ export const GALLERIES = {
 
   'blue-collar-content': {
     title: 'Blue Collar Content',
+    captions: false, // let the photos speak; text below stays for alt text only
     intro:
       'Trades work photographed on the job, in real conditions, with no staging. The kind of images that show a homeowner exactly who is showing up and what they do.',
     groups: [
