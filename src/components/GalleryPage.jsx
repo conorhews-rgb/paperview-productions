@@ -5,7 +5,16 @@ import { Icon } from './Icons'
 // Full-screen, Instagram-feed-style page for a portfolio series.
 // Opened via the URL hash (#gallery/<key>); `onClose` returns to the site.
 export default function GalleryPage({ data, onClose }) {
-  const items = data.items || []
+  // A gallery is either a flat list (`items`) or client-labelled rows
+  // (`groups`). Flatten groups so the lightbox can page through everything
+  // as one sequence, and remember where each group starts.
+  const groups = data.groups || null
+  const items = groups ? groups.flatMap((g) => g.items) : data.items || []
+  const groupStart = []
+  if (groups) {
+    groups.reduce((n, g) => (groupStart.push(n), n + g.items.length), 0)
+  }
+
   const [active, setActive] = useState(null) // lightbox index, or null
 
   // Esc closes the lightbox first, then the page.
@@ -21,6 +30,26 @@ export default function GalleryPage({ data, onClose }) {
 
   const thumb = (it) =>
     asset(it.type === 'video' ? it.poster || it.src : it.src)
+
+  // `i` is the index into the flattened `items`, so the lightbox stays in sync
+  // whether the page is grouped or not.
+  const tile = (it, i) => (
+    <figure className="gallery__item" key={i}>
+      <button
+        className="gallery__tile"
+        onClick={() => setActive(i)}
+        aria-label={it.caption || `Open item ${i + 1}`}
+      >
+        <img src={thumb(it)} alt={it.caption || ''} loading="lazy" />
+        {it.type === 'video' && (
+          <span className="work__play" aria-hidden="true">
+            <Icon.play />
+          </span>
+        )}
+      </button>
+      {it.caption && <figcaption className="gallery__cap">{it.caption}</figcaption>}
+    </figure>
+  )
 
   return (
     <div className="gallery" role="dialog" aria-label={data.title}>
@@ -40,7 +69,9 @@ export default function GalleryPage({ data, onClose }) {
           <h1 className="gallery__title">{data.title}</h1>
           <p className="gallery__intro">{data.intro}</p>
           <span className="gallery__count">
-            {items.length} {items.length === 1 ? 'post' : 'posts'}
+            {groups
+              ? `${items.length} photos · ${groups.length} clients`
+              : `${items.length} ${items.length === 1 ? 'post' : 'posts'}`}
           </span>
         </header>
 
@@ -60,26 +91,20 @@ export default function GalleryPage({ data, onClose }) {
               Want to book a session?
             </a>
           </div>
+        ) : groups ? (
+          groups.map((g, gi) => (
+            <section className="gallery__group" key={gi}>
+              <div className="gallery__group-head">
+                <h2 className="gallery__group-title">{g.client}</h2>
+                {g.blurb && <p className="gallery__group-blurb">{g.blurb}</p>}
+              </div>
+              <div className="gallery__grid">
+                {g.items.map((it, i) => tile(it, groupStart[gi] + i))}
+              </div>
+            </section>
+          ))
         ) : (
-          <div className="gallery__grid">
-            {items.map((it, i) => (
-              <figure className="gallery__item" key={i}>
-                <button
-                  className="gallery__tile"
-                  onClick={() => setActive(i)}
-                  aria-label={it.caption || `Open item ${i + 1}`}
-                >
-                  <img src={thumb(it)} alt={it.caption || ''} loading="lazy" />
-                  {it.type === 'video' && (
-                    <span className="work__play" aria-hidden="true">
-                      <Icon.play />
-                    </span>
-                  )}
-                </button>
-                {it.caption && <figcaption className="gallery__cap">{it.caption}</figcaption>}
-              </figure>
-            ))}
-          </div>
+          <div className="gallery__grid">{items.map(tile)}</div>
         )}
       </div>
 

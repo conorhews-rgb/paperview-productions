@@ -154,9 +154,11 @@ export const PORTFOLIO = [
   {
     id: 4,
     title: 'Blue Collar Content',
-    client: 'G&C Softwash',
+    client: 'G&C Softwash + Sam & Ivan Chimney',
     category: 'Photography',
     image: '/portfolio/blue-collar-content.jpg',
+    // Clicking this tile opens a dedicated gallery page (see GALLERIES below).
+    gallery: 'blue-collar-content',
   },
   {
     id: 5,
@@ -185,6 +187,10 @@ export const PORTFOLIO_FILTERS = ['All', 'Video', 'Photography', 'Social', 'Head
 //   { type: 'image', src: '/galleries/athlete/01.jpg', caption: 'Optional text' }
 //   { type: 'video', src: '/galleries/athlete/clip.mp4', poster: '/galleries/athlete/clip.jpg', caption: '...' }
 // Leave `items` empty to show the built-in "coming soon" placeholder state.
+//
+// A gallery can instead use `groups` to break the page into labelled rows, one
+// per client (see 'blue-collar-content'). Each group is:
+//   { client: 'Business Name', blurb: 'One line of context', items: [...] }
 export const GALLERIES = {
   'athlete-portraits': {
     title: 'Athlete Portrait Series',
@@ -197,6 +203,32 @@ export const GALLERIES = {
       { type: 'image', src: '/galleries/athlete/calvin-kattar.jpg', caption: 'Calvin Kattar, UFC Featherweight' },
       { type: 'image', src: '/galleries/athlete/dillon-danis.jpg', caption: 'Dillon Danis, Misfits MMA Welterweight Champion' },
       { type: 'image', src: '/galleries/athlete/rob-font.jpg', caption: 'Rob Font, UFC Bantamweight' },
+    ],
+  },
+
+  'blue-collar-content': {
+    title: 'Blue Collar Content',
+    intro:
+      'Trades work photographed on the job, in real conditions, with no staging. The kind of images that show a homeowner exactly who is showing up and what they do.',
+    groups: [
+      {
+        client: 'G&C Softwash',
+        blurb: 'House softwash, roof wash, and pressure washing. A full day on site with the crew.',
+        items: [
+          { type: 'image', src: '/galleries/blue-collar/gc-owner-wash.jpg', caption: 'Owner on the wand, washing a second-story overhang' },
+          { type: 'image', src: '/galleries/blue-collar/gc-roof-spray.jpg', caption: 'Softwash hitting the roofline, backlit against a clear sky' },
+          { type: 'image', src: '/galleries/blue-collar/gc-crew.jpg', caption: 'The full crew, end of a finished job' },
+        ],
+      },
+      {
+        client: 'Sam & Ivan Chimney',
+        blurb: 'Chimney repair, relining, and sweeps. Shot on the roof and down in the boiler room.',
+        items: [
+          { type: 'image', src: '/galleries/blue-collar/si-chimney-liner.jpg', caption: 'Setting a stainless liner into the flue' },
+          { type: 'image', src: '/galleries/blue-collar/si-boiler-room.jpg', caption: 'Reconnecting the flue pipe in the boiler room' },
+          { type: 'image', src: '/galleries/blue-collar/si-crew.jpg', caption: 'Three-man crew on the roof deck' },
+        ],
+      },
     ],
   },
 }
