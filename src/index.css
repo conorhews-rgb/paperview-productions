@@ -1179,9 +1179,6 @@ button { font-family: inherit; cursor: pointer; }
 /* Client-labelled rows (galleries defined with `groups`) */
 .gallery__group + .gallery__group { margin-top: clamp(40px, 6vw, 68px); }
 .gallery__group-head {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
   padding-bottom: 14px;
   margin-bottom: clamp(14px, 2vw, 22px);
   border-bottom: 1px solid var(--smoke);
@@ -1195,13 +1192,6 @@ button { font-family: inherit; cursor: pointer; }
   margin: 0;
   color: var(--gold-bright);
 }
-.gallery__group-blurb {
-  margin: 0;
-  color: var(--ash);
-  font-size: 0.95rem;
-  max-width: 60ch;
-}
-
 .gallery__grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);

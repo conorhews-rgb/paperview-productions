@@ -190,7 +190,7 @@ export const PORTFOLIO_FILTERS = ['All', 'Video', 'Photography', 'Social', 'Head
 //
 // A gallery can instead use `groups` to break the page into labelled rows, one
 // per client (see 'blue-collar-content'). Each group is:
-//   { client: 'Business Name', blurb: 'One line of context', items: [...] }
+//   { client: 'Business Name', items: [...] }
 export const GALLERIES = {
   'athlete-portraits': {
     title: 'Athlete Portrait Series',
@@ -214,7 +214,6 @@ export const GALLERIES = {
     groups: [
       {
         client: 'G&C Softwash',
-        blurb: 'House softwash, roof wash, and pressure washing. A full day on site with the crew.',
         items: [
           { type: 'image', src: '/galleries/blue-collar/gc-owner-wash.jpg', caption: 'Owner on the wand, washing a second-story overhang' },
           { type: 'image', src: '/galleries/blue-collar/gc-roof-spray.jpg', caption: 'Softwash hitting the roofline, backlit against a clear sky' },
@@ -223,7 +222,6 @@ export const GALLERIES = {
       },
       {
         client: 'Sam & Ivan Chimney',
-        blurb: 'Chimney repair, relining, and sweeps. Shot on the roof and down in the boiler room.',
         items: [
           { type: 'image', src: '/galleries/blue-collar/si-chimney-liner.jpg', caption: 'Setting a stainless liner into the flue' },
           { type: 'image', src: '/galleries/blue-collar/si-boiler-room.jpg', caption: 'Reconnecting the flue pipe in the boiler room' },

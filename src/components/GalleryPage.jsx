@@ -101,7 +101,6 @@ export default function GalleryPage({ data, onClose }) {
             <section className="gallery__group" key={gi}>
               <div className="gallery__group-head">
                 <h2 className="gallery__group-title">{g.client}</h2>
-                {g.blurb && <p className="gallery__group-blurb">{g.blurb}</p>}
               </div>
               <div className="gallery__grid">
                 {g.items.map((it, i) => tile(it, groupStart[gi] + i))}
