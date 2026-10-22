@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { getTrips } from '../api.js'
 import { fmtDate, fmtNum, fmtUsd, TIER_LABEL } from '../format.js'
 
 export default function ResultCard({ a, live, wallet }) {
@@ -10,10 +11,7 @@ export default function ResultCard({ a, live, wallet }) {
     setOpen(true)
     if (trips || !live) return
     try {
-      const res = await fetch(`/api/trips/${encodeURIComponent(a.id)}`)
-      const json = await res.json()
-      if (!res.ok) throw new Error(json.error)
-      setTrips(json.trips)
+      setTrips(await getTrips(a.id))
     } catch (err) {
       setTripError(err.message || 'Could not load flight details')
     }

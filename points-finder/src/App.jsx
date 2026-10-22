@@ -8,6 +8,7 @@ import Highlights from './components/Highlights.jsx'
 import DateStrip from './components/DateStrip.jsx'
 import ResultCard from './components/ResultCard.jsx'
 import { usePersistentState } from './usePersistentState.js'
+import { getMeta, searchAwards, STATIC } from './api.js'
 import { addDays, CABIN_LABEL, fmtDate } from './format.js'
 
 const today = new Date().toISOString().slice(0, 10)
@@ -39,15 +40,17 @@ export default function App() {
   const [focusId, setFocusId] = useState(null)
 
   useEffect(() => {
-    fetch('/api/meta')
-      .then((r) => r.json())
+    getMeta()
       .then(setMeta)
       .catch(() => setMeta({ live: false, provider: 'offline' }))
   }, [])
 
   // Old saved forms may hold past dates; roll them forward.
   useEffect(() => {
-    if (form.startDate < today) setForm((f) => ({ ...f, startDate: DEFAULT_FORM.startDate, endDate: DEFAULT_FORM.endDate }))
+    const f = form.startDate < today ? { ...form, startDate: DEFAULT_FORM.startDate, endDate: DEFAULT_FORM.endDate } : form
+    if (f !== form) setForm(f)
+    // The hosted preview opens on a sample search so there's something to explore.
+    if (STATIC) search(f)
   }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
   const search = async (f) => {
@@ -57,13 +60,7 @@ export default function App() {
     setProgramFilter([])
     setLimit(PAGE)
     try {
-      const res = await fetch('/api/search', {
-        method: 'POST',
-        headers: { 'content-type': 'application/json' },
-        body: JSON.stringify(f),
-      })
-      const json = await res.json()
-      if (!res.ok) throw new Error(json.error || 'Search failed')
+      const json = await searchAwards(f)
       setData({ ...json, passengers: Math.max(1, Number(f.passengers) || 1), cashFare: Number(f.cashFare) || undefined })
       if (f.directOnly) setFilters((x) => ({ ...x, directOnly: true }))
     } catch (err) {
@@ -133,7 +130,15 @@ export default function App() {
         )}
       </header>
 
-      {meta && !meta.live && (
+      {meta?.static && (
+        <div className="banner">
+          <strong>Preview with demo data.</strong> Availability and prices here are simulated, so don't book from them. Run Points
+          Finder on your computer with a{' '}
+          <a href="https://seats.aero/apikey" target="_blank" rel="noreferrer">seats.aero Pro API key</a> to search real award space.
+        </div>
+      )}
+
+      {meta && !meta.live && !meta.static && (
         <div className="banner">
           <strong>Demo mode.</strong> Availability and prices here are simulated, so you can try the app, but don't book from them. Add a{' '}
           <a href="https://seats.aero/apikey" target="_blank" rel="noreferrer">seats.aero Pro API key</a> as{' '}

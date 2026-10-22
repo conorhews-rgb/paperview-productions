@@ -21,7 +21,7 @@
 }
 
 @media (prefers-color-scheme: dark) {
-  :root {
+  :root:not([data-theme='light']) {
     --bg: #0d1117;
     --panel: #151b24;
     --panel-2: #1b2230;
@@ -40,6 +40,26 @@
     --shadow: none;
     color-scheme: dark;
   }
+}
+
+:root[data-theme='dark'] {
+  --bg: #0d1117;
+  --panel: #151b24;
+  --panel-2: #1b2230;
+  --line: #2a3342;
+  --text: #e8ecf3;
+  --muted: #97a1b3;
+  --accent: #6d9bff;
+  --accent-soft: #1c2a4a;
+  --good: #4cc38a;
+  --good-soft: #15291f;
+  --warn: #f0a94b;
+  --warn-soft: #2e2213;
+  --bad: #ff7b72;
+  --gold: #e3b45e;
+  --gold-soft: #2c2414;
+  --shadow: none;
+  color-scheme: dark;
 }
 
 * { box-sizing: border-box; }
@@ -92,13 +112,20 @@ input:focus, select:focus { outline: 2px solid var(--accent); outline-offset: -1
   justify-content: center;
 }
 .btn:disabled { opacity: 0.6; cursor: progress; }
+.btn:focus-visible, .chip:focus-visible, .day:focus-visible, .highlight:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 .btn.primary { background: var(--accent); color: #fff; }
 .btn.ghost { background: var(--panel); border-color: var(--line); color: var(--text); }
 .btn.ghost:hover { border-color: var(--accent); }
 .btn.small { padding: 5px 10px; font-size: 13px; font-weight: 500; }
 .link { background: none; border: 0; padding: 0; color: var(--accent); cursor: pointer; text-decoration: underline; }
 
-.app { max-width: 1280px; margin: 0 auto; padding: 20px 16px 40px; }
+.app {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding-block: 20px 40px;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
 
 .topbar { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 16px; }
 .brand { display: flex; align-items: center; gap: 12px; }
@@ -283,7 +310,7 @@ main { display: grid; gap: 16px; min-width: 0; }
 }
 
 @media (max-width: 640px) {
-  .app { padding: 14px 16px 32px; }
+  .app { padding-block: 14px 32px; }
   .topbar { align-items: flex-start; }
   .brand p { display: none; }
   .result-main { grid-template-columns: 1fr auto; gap: 8px 12px; }
