@@ -116,3 +116,9 @@ Forms feature can capture the contact form (see below).
   to receive inquiries at conor.hews@gmail.com.
 - **Combat Zone Instagram feed** — powered live by Behold; its styling (grid gaps,
   corners, hover) is tuned in the Behold dashboard.
+
+## Points Finder (side project)
+
+[`points-finder/`](points-finder/) is a separate, standalone app that finds award
+flights for the credit card points you hold. It has its own `package.json` and
+isn't part of the website build. See its README.
