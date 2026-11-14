@@ -1,31 +1,460 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <!-- Favicons: PPV mark on the site's dark plate. Square crops, since the
-         raw wordmark (800x290) is illegible at tab size. -->
-    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png" />
-    <link rel="icon" type="image/png" sizes="192x192" href="favicon-192.png" />
-    <link rel="icon" type="image/png" sizes="512x512" href="favicon-512.png" />
-    <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png" />
-    <link rel="icon" href="favicon.ico" sizes="any" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta
-      name="description"
-      content="Paperview Productions: full-service digital media and content production in Haverhill, MA. Social media management, video, photography, headshots and content strategy for gyms, trades, local businesses and families."
-    />
-    <title>Paperview Productions | Digital Media & Content Production | Haverhill, MA</title>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Paperview Productions | Camera Work, Social Media and Marketing</title>
+  <meta name="description" content="Paperview Productions shoots the content, runs the social media and builds the marketing for blue collar businesses, white collar firms and combat sports. $150,000+ in new business for one client in 3 months. 75 million views for one event in under a week." />
+  <link rel="canonical" href="https://paperviewproductions.com/" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://paperviewproductions.com/" />
+  <meta property="og:title" content="Paperview Productions | Camera Work, Social Media and Marketing" />
+  <meta property="og:description" content="We shoot the content, run the social media and build the marketing for blue collar businesses, white collar firms and combat sports." />
+  <meta property="og:image" content="https://paperviewproductions.com/favicon-512.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png" />
+  <link rel="icon" type="image/png" sizes="192x192" href="favicon-192.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png" />
+  <link rel="icon" href="favicon.ico" sizes="any" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&family=Oswald:wght@500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/site.css?v=12" />
+  <link rel="stylesheet" href="css/fx.css?v=12" />
+  <link rel="stylesheet" href="css/more.css?v=12" />
+  <script>
+    // mark the page as scripted so the entrance states apply, with a safety net if anything stalls
+    document.documentElement.classList.add('js');
+    setTimeout(function () { document.documentElement.classList.add('is-live'); }, 4500);
+  </script>
+  <noscript><style>.boot { display: none !important; }</style></noscript>
+</head>
+<body>
 
-    <!-- Fonts: Bebas Neue (fight-poster display) + Inter (body) -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Oswald:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap"
-      rel="stylesheet"
-    />
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.jsx"></script>
-  </body>
+<!-- Live bokeh behind the whole page -->
+<canvas class="gl" id="gl" aria-hidden="true"></canvas>
+
+<!-- Boot sequence: the iris opens onto the page -->
+<div class="boot" id="boot" aria-hidden="true">
+  <div class="iris" id="bootIris"></div>
+  <div class="boot__hud">
+    <span class="boot__tag">PVP &middot; 7S</span>
+    <b class="boot__n" id="bootN">000</b>
+    <span class="boot__msg" id="bootMsg">Powering on</span>
+  </div>
+</div>
+
+<!-- Viewfinder frame around the page (desktop) -->
+<div class="vf" id="vf" aria-hidden="true">
+  <i class="vf__c vf__c--tl"></i><i class="vf__c vf__c--tr"></i><i class="vf__c vf__c--bl"></i><i class="vf__c vf__c--br"></i>
+  <div class="vf__sec"><b id="vfNum">00</b><span id="vfName">Camera</span></div>
+  <div class="vf__exp" id="vfExp">1/1000 &nbsp; f/2.8 &nbsp; ISO 3200</div>
+  <div class="vf__scale" id="vfScale"><i class="vf__dot" id="vfDot"></i></div>
+</div>
+
+<!-- Autofocus reticle that trails the pointer (desktop only) -->
+<div class="reticle" id="reticle" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+
+<!-- ============================ NAV ============================ -->
+<header class="nav" id="nav">
+  <a class="nav__brand" href="#top" aria-label="Paperview Productions home">
+    <img src="assets/logo/Paperview-Productions-Logo-hz-gold.png" alt="Paperview Productions" />
+  </a>
+  <nav class="nav__links" id="navLinks" aria-label="Sections">
+    <a href="#results">Results</a>
+    <a href="#services">What We Do</a>
+    <a href="#industries">Industries</a>
+    <a href="#proof">Proof</a>
+    <a href="#about">About</a>
+    <a href="#contact" class="btn btn--gold btn--sm">Start a project</a>
+  </nav>
+  <div class="nav__tc" aria-hidden="true"><span class="rec"></span><span id="timecode">00:00:00:00</span></div>
+  <button class="nav__snd" id="snd" aria-pressed="true" aria-label="Camera sounds on"><i></i><i></i><i></i><i></i></button>
+  <button class="nav__burger" id="burger" aria-label="Open menu" aria-expanded="false"><span></span><span></span><span></span></button>
+</header>
+
+<main id="top">
+
+<!-- ============================ HERO: THE CAMERA ============================ -->
+<section class="hero" id="hero">
+ <div class="hero__pin" id="heroPin">
+  <div class="hero__grid">
+    <div class="hero__head">
+      <p class="eyebrow">Camera work · Social media · Marketing</p>
+      <h1 class="hero__title">Content that brings in <em>paying work.</em></h1>
+    </div>
+    <div class="hero__rest">
+      <p class="hero__lede">
+        We are the camera crew, the social media team and the marketing shop in one.
+        We work with blue collar businesses, white collar firms and combat sports.
+      </p>
+      <ul class="hero__proof">
+        <li><b>$150,000+</b><span>in new business for Marotte Industrial within 3 months</span></li>
+        <li><b>75M views</b><span>for Duel Arena in under a week</span></li>
+      </ul>
+      <div class="hero__cta">
+        <a href="#contact" class="btn btn--gold">Start a project</a>
+        <a href="#results" class="btn btn--line">See the results</a>
+      </div>
+    </div>
+
+    <div class="hero__cam">
+     <div class="rig" id="rig" data-cursor="Drag to spin">
+      <div class="rig__floor" id="rigFloor"></div>
+      <div class="rig__spin" id="spin">
+      <div class="cam" id="cam" tabindex="0" aria-label="Interactive camera. Use the mode list to choose an industry, the format buttons to choose a content format, and the shutter to take the shot.">
+        <div class="cam__hump"><span class="cam__evf"></span></div>
+        <div class="cam__top">
+          <div class="cam__model"><span class="cam__lamp" id="camLamp"></span>PVP&nbsp;·&nbsp;7S</div>
+          <div class="cam__brand">PAPERVIEW</div>
+          <button class="cam__shutter" id="shutter" aria-label="Take the shot"><span></span></button>
+        </div>
+
+        <div class="cam__body">
+          <div class="lcd" id="lcd">
+            <div class="lcd__bg" id="lcdBg"></div>
+            <div class="lcd__frame" id="lcdFrame"></div>
+
+            <div class="lcd__hud" aria-hidden="true">
+              <div class="hud hud--tl"><span class="hud__rec" id="hudRec">STBY</span><span id="hudClock">00:00:00</span></div>
+              <div class="hud hud--tr"><span id="hudFmt">3:2</span><span class="hud__batt"><i></i></span></div>
+              <div class="hud hud--bl">
+                <b id="hudClient">Client</b>
+                <span id="hudWhat">What it is</span>
+              </div>
+              <div class="hud hud--br" id="hudWhere">Where it goes</div>
+              <div class="hud hud--bar"><span id="hudSS">1/500</span><span id="hudAp">f/2.8</span><span id="hudIso">ISO 400</span><span class="hud__meter"><i id="hudNeedle"></i></span></div>
+              <div class="af" id="af"><i></i><i></i><i></i><i></i></div>
+              <div class="lcd__thirds"></div>
+            </div>
+            <div class="lcd__glare" id="lcdGlare"></div>
+            <div class="lcd__blades" id="blades"><i></i><i></i></div>
+            <div class="lcd__flash" id="flash"></div>
+          </div>
+
+          <div class="cam__ctl">
+            <div class="ctl">
+              <p class="ctl__label">Mode</p>
+              <div class="mode">
+                <div class="mode__list" id="modeList" role="tablist" aria-label="Industry"></div>
+                <div class="mode__knob" id="knob" aria-hidden="true"><span></span></div>
+              </div>
+            </div>
+            <div class="ctl">
+              <p class="ctl__label">Format</p>
+              <div class="fmt" id="fmtList" role="tablist" aria-label="Content format"></div>
+            </div>
+            <div class="ctl ctl--row">
+              <button class="pad" id="prev" aria-label="Previous">&#9664;</button>
+              <span class="ctl__count"><b id="shotCount">000</b> shots</span>
+              <button class="pad" id="next" aria-label="Next">&#9654;</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      </div><!-- /spin -->
+     </div><!-- /rig -->
+
+     <div class="hero__extras" id="heroExtras">
+      <div class="rigbar">
+        <button class="rigbar__flip" id="flip" type="button"><i></i><span id="flipLabel">See the lens</span></button>
+        <span class="key">Drag to spin</span><span class="key">Turn the dial</span><span class="key">Pick a format</span><span class="key">Press the shutter</span>
+      </div>
+      <div class="roll" id="roll" aria-live="polite">
+        <div class="roll__strip" id="rollStrip"></div>
+        <p class="roll__note" id="rollNote">Press the gold shutter to put a frame on the roll.</p>
+      </div>
+     </div>
+    </div>
+  </div>
+
+  <!-- exploded view: each part of the camera is one of the three jobs -->
+  <div class="xp" id="xp" aria-hidden="true">
+    <div class="xp__l xp__l--side"><i>02 &middot; The screen</i><b>Social media</b><span>Where your customers see it, posted on a schedule.</span></div>
+    <div class="xp__l xp__l--low"><i>03 &middot; The sensor</i><b>Marketing</b><span>Where the picture turns into calls and booked work.</span></div>
+    <div class="xp__l"><i>01 &middot; The lens</i><b>Camera work</b><span>Pointed at your job site, your gym or your office.</span></div>
+  </div>
+
+  <!-- scroll takes you through the lens into the results -->
+  <div class="dive" id="dive" aria-hidden="true">
+    <div class="dive__say" id="diveSay"><span>Through the lens</span><b>Here is what comes back.</b></div>
+  </div>
+  <div class="hero__scroll" id="heroScroll" aria-hidden="true"><i></i>Scroll to go through the lens</div>
+ </div><!-- /pin -->
+</section>
+
+<!-- ============================ RESULTS ============================ -->
+<section class="sec" id="results">
+  <div class="wrap">
+    <header class="sec__head reveal">
+      <p class="eyebrow">Results</p>
+      <h2 class="sec__title">This is marketing. <em>Not just video.</em></h2>
+      <p class="sec__lede">Good footage is where it starts. What counts is what comes back: calls, booked jobs, ticket sales and views that turn into money. Here are two examples.</p>
+    </header>
+
+    <div class="cases">
+      <!-- Marotte -->
+      <article class="case reveal" data-case="marotte">
+        <div class="case__media">
+          <div class="case__view" id="caseMarotte"></div>
+          <div class="case__tabs" role="tablist">
+            <button class="chip is-on" data-kind="img" data-src="assets/img/bc-mi-demo-excavator.webp">On-site shoots</button>
+            <button class="chip" data-kind="img" data-src="assets/img/bc-mi-hydrant-wrench.webp">Carousels</button>
+            <button class="chip" data-kind="vid" data-src="assets/vid/reel-marotte.mp4" data-poster="assets/vid/reel-marotte.webp" data-fit="contain">Reels</button>
+          </div>
+        </div>
+        <div class="case__body">
+          <p class="case__tag">Blue collar · Marotte Industrial</p>
+          <p class="case__num"><span class="num">$150,000+</span></p>
+          <div class="scrub" data-scrub="marotte"></div>
+          <p class="case__line">in new business within 3 months of working with us.</p>
+          <p class="case__how">We shot on their job sites, turned the footage into carousels and reels, and ran their social media. The phone started ringing with real jobs.</p>
+        </div>
+      </article>
+
+      <!-- Duel Arena -->
+      <article class="case reveal" data-case="duel">
+        <div class="case__media">
+          <div class="case__view" id="caseDuel"></div>
+          <div class="case__tabs" role="tablist">
+            <button class="chip is-on" data-kind="vid" data-src="assets/vid/wide-duel.mp4" data-poster="assets/vid/wide-duel.webp">The arena</button>
+            <button class="chip" data-kind="img" data-src="assets/img/ev-duel-presser.webp">Press conference</button>
+            <button class="chip" data-kind="vid" data-src="assets/vid/reel-duel.mp4" data-poster="assets/vid/reel-duel.webp" data-fit="contain">Fight week reels</button>
+          </div>
+        </div>
+        <div class="case__body">
+          <p class="case__tag">Live events · Duel Arena, Orlando</p>
+          <p class="case__num"><span class="num">75M</span><small>views</small></p>
+          <div class="scrub" data-scrub="duel"></div>
+          <p class="case__line">in less than a week.</p>
+          <p class="case__how">Press conference, weigh-ins, arrivals and fight night, cut and posted while people were still talking about it. Big events need big numbers and we can bring them.</p>
+        </div>
+      </article>
+    </div>
+
+    <!-- more numbers -->
+    <div class="minis">
+      <article class="mini reveal"><b><span class="count" data-to="200" data-suffix="+">200+</span></b><h3>Athletes on camera</h3><p>Including Jon Jones, Conor McGregor, Gordon Ryan and Calvin Kattar.</p></article>
+      <article class="mini reveal"><b><span class="count" data-to="223">223</span></b><h3>Photos from one evening</h3><p>Finished and delivered from the Ultimate Glow 5 year anniversary.</p></article>
+      <article class="mini reveal"><b><span class="count" data-to="3" data-suffix="+">3+</span></b><h3>Years with Combat Zone MMA</h3><p>Fight weeks, hype videos, walkouts and the social media, event after event.</p></article>
+      <article class="mini reveal"><b><span class="count" data-to="4">4</span></b><h3>Formats from one shoot</h3><p>Photos, a reel, a carousel and a wide cut. One visit, a month of posts.</p></article>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ WHAT WE DO ============================ -->
+<section class="sec sec--alt" id="services">
+  <div class="wrap">
+    <header class="sec__head reveal">
+      <p class="eyebrow">What we do</p>
+      <h2 class="sec__title">Three jobs. <em>One team.</em></h2>
+      <p class="sec__lede">Most businesses hire a videographer, then a social media person, then a marketer, and hope they talk to each other. We do all three, so every shoot has a plan and every post has a job.</p>
+    </header>
+
+    <div class="svc reveal" id="svc">
+      <div class="svc__ring" role="tablist" aria-label="Services">
+        <button class="svc__tab is-on" data-i="0" role="tab"><span>01</span>Camera work</button>
+        <button class="svc__tab" data-i="1" role="tab"><span>02</span>Social media management</button>
+        <button class="svc__tab" data-i="2" role="tab"><span>03</span>Marketing</button>
+      </div>
+      <div class="svc__panel" id="svcPanel"></div>
+    </div>
+
+    <!-- a ring of finished work you can turn -->
+    <div class="ringwrap reveal">
+      <div class="ringwrap__head">
+        <h3>What ends up <em>on the feed.</em></h3>
+        <p>Reels and photos we made for clients. Drag to turn it.</p>
+      </div>
+      <div class="ring" id="ring" data-cursor="Drag"><div class="ring__spin" id="ringSpin"></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ HOW IT WORKS ============================ -->
+<section class="proc" id="process">
+  <div class="proc__pin">
+    <header class="proc__head reveal">
+      <div>
+        <p class="eyebrow">How it works</p>
+        <h2 class="sec__title">From the first call <em>to booked work.</em></h2>
+      </div>
+      <p class="proc__count" aria-hidden="true"><b id="procN">01</b> / 06</p>
+    </header>
+    <div class="proc__track" id="procTrack">
+      <article class="pstep">
+        <span class="pstep__n" aria-hidden="true">01</span>
+        <div class="pstep__body"><h3>Talk</h3><p>Tell us what you want more of: calls, members, ticket sales or views. We come back with a plan and a price.</p><ul><li>Call, text or use the form</li><li>One shoot or a monthly plan</li><li>No guessing what it costs</li></ul></div>
+        <div class="pstep__media"><img src="assets/img/bc-mi-site-talk.webp" alt="" loading="lazy"></div>
+      </article>
+      <article class="pstep">
+        <span class="pstep__n" aria-hidden="true">02</span>
+        <div class="pstep__body"><h3>Plan</h3><p>We work out what to make, when to post it and why. You get a calendar your business can actually keep up with.</p><ul><li>What you sell and who buys it</li><li>A shot list for every shoot</li><li>A content calendar for the month</li></ul></div>
+        <div class="pstep__media"><img src="assets/img/bc-gc-crew.webp" alt="" loading="lazy"></div>
+      </article>
+      <article class="pstep">
+        <span class="pstep__n" aria-hidden="true">03</span>
+        <div class="pstep__body"><h3>Shoot</h3><p>We come to you: the job site, the gym, the office or cageside. Photo and video on the same day.</p><ul><li>Photo and video together</li><li>Drone footage when the job calls for it</li><li>Your crew and your work, not stock photos</li></ul></div>
+        <div class="pstep__media"><img src="assets/img/founder.webp" alt="" loading="lazy"></div>
+      </article>
+      <article class="pstep">
+        <span class="pstep__n" aria-hidden="true">04</span>
+        <div class="pstep__body"><h3>Edit</h3><p>One shoot becomes a reel, a carousel, a set of photos and a wide cut for the website.</p><ul><li>Reels for Instagram, TikTok and Shorts</li><li>Carousels that teach your customer something</li><li>Photos for the website, ads and print</li></ul></div>
+        <div class="pstep__media"><img src="assets/img/cs-bkfc-inside.webp" alt="" loading="lazy"></div>
+      </article>
+      <article class="pstep">
+        <span class="pstep__n" aria-hidden="true">05</span>
+        <div class="pstep__body"><h3>Post</h3><p>We run the pages and the schedule so you can run the business. At events we post while it is happening.</p><ul><li>Instagram, Facebook, TikTok and YouTube</li><li>Captions written for you</li><li>Replies and community handled</li></ul></div>
+        <div class="pstep__media"><img src="assets/img/ev-dbx6-arena.webp" alt="" loading="lazy"></div>
+      </article>
+      <article class="pstep">
+        <span class="pstep__n" aria-hidden="true">06</span>
+        <div class="pstep__body"><h3>Count</h3><p>Views are a tool. We look at what came back: calls, booked jobs, new members and tickets sold. Then we do more of what worked.</p><ul><li>$150,000+ for Marotte Industrial in 3 months</li><li>75M views for Duel Arena in under a week</li></ul></div>
+        <div class="pstep__media"><img src="assets/img/bc-mi-demo-excavator.webp" alt="" loading="lazy"></div>
+      </article>
+    </div>
+    <div class="proc__bar" aria-hidden="true"><i id="procBar"></i></div>
+  </div>
+</section>
+
+<!-- ============================ INDUSTRIES ============================ -->
+<section class="sec" id="industries">
+  <div class="wrap">
+    <header class="sec__head reveal">
+      <p class="eyebrow">Who we work with</p>
+      <h2 class="sec__title">Pick your <em>industry.</em></h2>
+      <p class="sec__lede">The work changes with the business. A fight promotion needs views this week. A contractor needs the phone to ring. An office needs to look like the best in town.</p>
+    </header>
+    <div class="indnav reveal" id="indNav" role="tablist" aria-label="Industry">
+      <button class="indnav__b is-on" data-ind="combat">Combat sports</button>
+      <button class="indnav__b" data-ind="blue">Blue collar</button>
+      <button class="indnav__b" data-ind="white">White collar</button>
+    </div>
+  </div>
+
+  <div class="ind" id="indStage"></div>
+</section>
+
+<!-- ============================ PROOF ============================ -->
+<section class="sec sec--alt" id="proof">
+  <div class="wrap">
+    <header class="sec__head reveal">
+      <p class="eyebrow">Proof</p>
+      <h2 class="sec__title">The people we shoot <em>say it better.</em></h2>
+    </header>
+    <div class="names reveal" id="names">
+      <p class="names__k">200+ athletes on our cameras. A few you will know.</p>
+      <ul><li data-img="ath-jon-jones"><b>Jon Jones</b><span>UFC light heavyweight and heavyweight champion</span></li><li data-img="ath-conor-mcgregor"><b>Conor McGregor</b><span>UFC featherweight and lightweight champion</span></li><li data-img="ath-mike-perry"><b>Mike Perry</b><span>BKFC King of Violence champion</span></li><li data-img="ath-calvin-kattar"><b>Calvin Kattar</b><span>UFC featherweight</span></li><li data-img="ath-dillon-danis"><b>Dillon Danis</b><span>Misfits MMA welterweight champion</span></li><li data-img="ath-rob-font"><b>Rob Font</b><span>UFC bantamweight</span></li><li data-img="ath-gordon-ryan"><b>Gordon Ryan</b><span>Grappling</span></li><li data-img=""><b>John Danaher</b><span>Coach</span></li><li data-img="poster-kyle-bochniak"><b>Kyle Bochniak</b><span>UFC veteran</span></li><li data-img="cs-murrin-bag"><b>James Murrin</b><span>Hype shoot</span></li><li data-img=""><b>Stitch Duran</b><span>Cutman</span></li><li data-img="ath-connor-barry"><b>Connor Barry</b><span>NFP middleweight boxing champion</span></li><li data-img="ath-victoria-walsh"><b>Victoria Walsh</b><span>NFP bantamweight kickboxing champion</span></li></ul>
+    </div>
+    <p class="names__k reveal">In their words</p>
+    <div class="proof" id="proofGrid"></div>
+  </div>
+</section>
+
+<!-- ============================ ABOUT ============================ -->
+<section class="sec" id="about">
+  <div class="wrap about">
+    <div class="about__pic reveal"><img src="assets/img/founder.webp" alt="The founder of Paperview Productions on a shoot" loading="lazy" /><span class="about__tag">On a shoot &middot; Haverhill, MA</span></div>
+    <div class="about__copy reveal">
+      <p class="eyebrow">Who we are</p>
+      <h2 class="sec__title">A media team <em>run by a fighter.</em></h2>
+      <p class="about__lead">I am the founder of Paperview Productions, a digital media and content company based in the Haverhill, MA area. We build content and run social media for businesses that want to look as serious as they actually are.</p>
+      <p>I am also a fighter. I have trained and competed, and our team has handled media for athletes like Jon Jones, Gordon Ryan, John Danaher, Rob Font and Calvin Kattar, and run the social media for Dirty Boxing Championship 6 and Calvin Kattar's Combat Zone MMA, a client of ours for more than three years. When athletes at that level trust you with their image, you learn how to make anyone look their best under pressure.</p>
+      <p>That is what you get with our team: the eye and polish of a real media company, backed by the discipline and follow-through you would expect from people who train. Whether you are filling classes, booking jobs or selling out an arena, the standard stays the same.</p>
+      <div class="about__stats">
+        <div><b><span class="count" data-to="200" data-suffix="+">200+</span></b><span>Athletes on camera</span></div>
+        <div><b><span class="count" data-to="75" data-suffix="M">75M</span></b><span>Views in one fight week</span></div>
+        <div><b><span class="count" data-to="150" data-prefix="$" data-suffix="K+">$150K+</span></b><span>For one client in 3 months</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ FAQ ============================ -->
+<section class="sec sec--alt" id="faq">
+  <div class="wrap">
+    <header class="sec__head reveal">
+      <p class="eyebrow">Questions</p>
+      <h2 class="sec__title">What people ask <em>before they call.</em></h2>
+    </header>
+    <div class="faq reveal" id="faqList">
+      <div class="qa"><button class="qa__q" type="button" aria-expanded="false"><span>Is this just video?</span><i></i></button><div class="qa__a"><div><p>No. We shoot it, we post it and we build the marketing around it. The point is what comes back: Marotte Industrial booked $150,000+ in new business within 3 months of working with us.</p></div></div></div>
+      <div class="qa"><button class="qa__q" type="button" aria-expanded="false"><span>What kinds of businesses do you work with?</span><i></i></button><div class="qa__a"><div><p>Blue collar businesses like contractors, trades and farms. White collar firms like real estate teams, med spas and offices. Combat sports: promotions, gyms and fighters. We also shoot headshots, portraits and family sessions for individuals.</p></div></div></div>
+      <div class="qa"><button class="qa__q" type="button" aria-expanded="false"><span>Is it a monthly plan or a one time shoot?</span><i></i></button><div class="qa__a"><div><p>Both. Social media management and content strategy run month to month. Shoots, headshots, event coverage and commercials can be booked one at a time.</p></div></div></div>
+      <div class="qa"><button class="qa__q" type="button" aria-expanded="false"><span>Do you travel?</span><i></i></button><div class="qa__a"><div><p>Yes. We are based in Haverhill, MA and we travel for events. Duel Arena was at the Kia Center in Orlando.</p></div></div></div>
+      <div class="qa"><button class="qa__q" type="button" aria-expanded="false"><span>Can you handle a big event?</span><i></i></button><div class="qa__a"><div><p>Yes. We cover fight week from the press conference to the walkout and post while it is happening. Duel Arena reached 75 million views in less than a week. We have worked with Combat Zone MMA for more than three years, and covered Dirty Boxing Championship, BKFC and Northeast Fight Promotion.</p></div></div></div>
+      <div class="qa"><button class="qa__q" type="button" aria-expanded="false"><span>Where do I find photos from an event you shot?</span><i></i></button><div class="qa__a"><div><p>Event photos are in our Pixieset store at <a href="https://paperviewproductions.pixieset.com" target="_blank" rel="noreferrer">paperviewproductions.pixieset.com</a>.</p></div></div></div>
+      <div class="qa"><button class="qa__q" type="button" aria-expanded="false"><span>How do we get started?</span><i></i></button><div class="qa__a"><div><p>Send the form below, or call or text (978) 918-6755. Tell us about the business and what you want more of, and we will come back with a plan and a price.</p></div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ CONTACT ============================ -->
+<section class="sec" id="contact">
+  <div class="wrap contact">
+    <div class="contact__copy reveal">
+      <p class="eyebrow">Start a project</p>
+      <h2 class="sec__title">Tell us what you want <em>more of.</em></h2>
+      <p class="sec__lede">More calls, more members, more ticket sales, more views. Tell us about the business and we will come back with a plan and a price.</p>
+      <ul class="contact__lines">
+        <li><span>Call or text</span><a href="tel:+19789186755">(978) 918-6755</a></li>
+        <li><span>Email</span><a href="mailto:conor.hews@gmail.com">conor.hews@gmail.com</a></li>
+        <li><span>Instagram</span><a href="https://instagram.com/Paperviewproductions" target="_blank" rel="noreferrer">@Paperviewproductions</a></li>
+        <li><span>Based in</span><b>Haverhill, MA. We travel for events.</b></li>
+      </ul>
+      <a class="contact__px" href="https://paperviewproductions.pixieset.com" target="_blank" rel="noreferrer">Looking for your event photos? Find them here &rarr;</a>
+    </div>
+
+    <form class="form reveal" id="form" novalidate>
+      <input type="checkbox" name="botcheck" tabindex="-1" autocomplete="off" class="hp" />
+      <div class="form__row">
+        <label>Name<input name="name" required autocomplete="name" /></label>
+        <label>Business<input name="business" autocomplete="organization" /></label>
+      </div>
+      <div class="form__row">
+        <label>Email<input name="email" type="email" required autocomplete="email" /></label>
+        <label>Phone<input name="phone" type="tel" autocomplete="tel" /></label>
+      </div>
+      <fieldset class="form__pick">
+        <legend>What kind of business?</legend>
+        <label><input type="radio" name="industry" value="Blue collar" /><span>Blue collar</span></label>
+        <label><input type="radio" name="industry" value="White collar" /><span>White collar</span></label>
+        <label><input type="radio" name="industry" value="Combat sports" /><span>Combat sports</span></label>
+        <label><input type="radio" name="industry" value="Live event" /><span>Live event</span></label>
+        <label><input type="radio" name="industry" value="Something else" /><span>Something else</span></label>
+      </fieldset>
+      <label>What do you want more of?<textarea name="message" rows="4" required placeholder="Tell us about the business and what a win looks like."></textarea></label>
+      <p class="form__err" id="formErr" hidden></p>
+      <button class="btn btn--gold form__send" id="formSend" type="submit">Send it</button>
+    </form>
+    <div class="form form--done" id="formDone" hidden>
+      <div class="form__ok">&#10003;</div>
+      <h3>Got it.</h3>
+      <p>We will be in touch within one business day. In a hurry? Call or text (978) 918-6755.</p>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="foot">
+  <div class="foot__mark" id="footMark" aria-hidden="true"><span>PAPERVIEW</span><span class="foot__fill">PAPERVIEW</span></div>
+  <div class="wrap foot__in">
+    <img src="assets/logo/Paperview-Productions-Logo-hz-gold.png" alt="Paperview Productions" />
+    <p>Camera work, social media management and marketing. Haverhill, MA.</p>
+    <p class="foot__c">&copy; <span id="yr"></span> Paperview Productions</p>
+  </div>
+</footer>
+
+<!-- Lightbox -->
+<div class="lb" id="lb" hidden>
+  <button class="lb__x" id="lbX" aria-label="Close">&times;</button>
+  <button class="lb__nav lb__nav--p" id="lbP" aria-label="Previous">&#9664;</button>
+  <figure class="lb__fig"><img id="lbImg" alt="" /><figcaption id="lbCap"></figcaption></figure>
+  <button class="lb__nav lb__nav--n" id="lbN" aria-label="Next">&#9654;</button>
+</div>
+
+<script src="js/site.js?v=12" defer></script>
+<script src="js/fx.js?v=12" defer></script>
+<script src="js/more.js?v=12" defer></script>
+</body>
 </html>

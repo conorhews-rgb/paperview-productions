@@ -1,5 +1,8 @@
 name: Deploy to GitHub Pages
 
+# The site is plain HTML, CSS and JavaScript with no build step.
+# Every push to main publishes the repo as it is.
+
 on:
   push:
     branches: [main]
@@ -20,15 +23,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 22
-          cache: npm
-      - run: npm ci
-      - run: npm run build
       - uses: actions/upload-pages-artifact@v3
         with:
-          path: dist
+          path: .
 
   deploy:
     needs: build
